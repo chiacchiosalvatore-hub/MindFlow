@@ -1,0 +1,21 @@
+# Dipendenze
+node_modules/
+
+# Build / output
+dist/
+build/
+out/
+.next/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+
+# Log e file temporanei
+*.log
+.tmp-recon/
+
+# Segreti — mai committare chiavi API o file .env
+.env
+.env.*
