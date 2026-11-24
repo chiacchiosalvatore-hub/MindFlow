@@ -227,7 +227,7 @@ cancellazione ma NON chiudeva il dialogo, che restava aperto a coprire il pannel
    errori) — i tasti sembravano morti. Ora un esito non-busy tiene la riga 3 s prima che
    l'orologio riprenda.
 3. Flag di annullamento ripulito ai giusti confini: un nuovo avvio (raccolta o pipeline)
-   ignora un annullamento precedente; nessuno stato «bloccato» permanente.
+   ignora un annullamento precedente; nessun stato «bloccato» permanente.
 
 Conferma utente del 21/11 dopo le prove: **«varie prove ok, siamo vicini»** — la v1.1.4
 è il punto fermo da cui parte la v1.2.0. Test: suite completa verde (panel-boot 8,
