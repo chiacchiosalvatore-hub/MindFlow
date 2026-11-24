@@ -6,7 +6,9 @@ finché non lo è: il build `mindflow-extension-firefox-v1.2.2.zip` resta pronto
 in locale e la voce AMO si riapre dopo una prova reale (§ 7).
 
 Base di partenza: v1.2.2 «La porta si corregge da sola», suite di test verde
-(oltre 200 asserzioni). Il piano completo di visibilità, lancio e monetizzazione
+(oltre 200 asserzioni), **audit di sicurezza statico completato**
+([docs/AUDIT-SICUREZZA.md](docs/AUDIT-SICUREZZA.md)), licenza **MIT** ([LICENSE](LICENSE)).
+Il piano completo di visibilità, lancio e monetizzazione
 è nel documento «MindFlow-Piano-Deploy-Visibilita-Monetizzazione-v1.2.2.pdf».
 
 ## 1. Dichiarazione trader / non-trader (DSA) — prima di tutto
@@ -31,7 +33,7 @@ Google chiede a OGNI sviluppatore CWS di dichiararsi «trader» o «non-trader»
 | --- | --- |
 | Account sviluppatore CWS | quota una tantum di 5 USD (una sola volta per account, non annuale) |
 | Email | consigliata un'email dedicata: lì arrivano le comunicazioni di revisione |
-| Altri costi | zero: repo GitHub gratuito, landing statica gratuita |
+| Altri costi | zero: repo GitHub gratuito, landing statica gratuita (GitHub Pages) |
 
 ## 3. Asset da produrre (in ordine di priorità)
 
@@ -42,10 +44,12 @@ Google chiede a OGNI sviluppatore CWS di dichiararsi «trader» o «non-trader»
    Si riusa nel README, nello store e nei canali di lancio.
 2. **1-5 screenshot 1280x800**: pannello con grafo completo, dettaglio
    checkpoint, impostazioni con test di connessione riuscito, confronto
-   «Compila».
-3. **Privacy policy con URL pubblico** (pagina statica / GitHub Pages): una
-   pagina che dichiari nessun server, nessuna telemetria, nessuna raccolta,
-   l'uso dei permessi (tabella del § 5) e come revocare (disinstallazione).
+   «Compila». Le immagini di anteprima esistono già (la vetrina ne incorpora
+   una reale in `docs/index.html`); per lo store servono al formato 1280x800.
+3. **Privacy policy con URL pubblico** — ✅ **FATTA (24/11/2026)**:
+   sorgente `docs/privacy-policy.html` nel repository; URL pubblico
+   `https://chiacchiosalvatore-hub.github.io/MindFlow/privacy-policy.html`
+   (attiva GitHub Pages: Settings → Pages → Deploy from a branch → `main` → `/docs`).
 4. **Testi store IT+EN**: nome breve; descrizione breve di 132 caratteri;
    descrizione estesa con la frase di posizionamento («La memoria delle tue
    chat AI, sul tuo computer…») e i quattro differenziatori; categoria
@@ -58,9 +62,9 @@ Google chiede a OGNI sviluppatore CWS di dichiararsi «trader» o «non-trader»
   fa parte di questa fase).
 - Manifest MV3 già conforme: nessun codice remoto, nessuno script o CSS
   esterno, nessun eval/Function dinamico, risorse web accessibili solo locali.
-- Attenzione build: `scripts/build-extension.sh` contiene percorsi assoluti
-  dell'ambiente originale (`/home/z/my-project/...`); adattarli prima di
-  rigenerare lo zip. Le icone si rigenerano con
+- ✅ Build sistemato (24/11/2026, audit): `scripts/build-extension.sh` e gli
+  altri script ora usano percorsi **relativi** e funzionano in qualsiasi clone,
+  senza adattamenti. Le icone si rigenerano con
   `python3 scripts/make-extension-icons.py`.
 
 ## 5. Giustificazione dei permessi (da incollare in fase di revisione)
@@ -77,6 +81,8 @@ Google chiede a OGNI sviluppatore CWS di dichiararsi «trader» o «non-trader»
 Nel tab «Privacy practices» del dashboard: dichiarare che NON vengono raccolti
 dati personali né dati d'uso; nessuna pubblicità; nessun codice eseguito da
 remoto. L'informativa privacy (asset 3 del § 3) va linkata dove richiesto.
+L'inventario completo dei controlli di sicurezza con gli esiti è in
+[docs/AUDIT-SICUREZZA.md](docs/AUDIT-SICUREZZA.md).
 
 ## 6. Invio e revisione
 
