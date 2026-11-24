@@ -8,6 +8,15 @@
 
 **Fase 1 del lancio (25/11/2026): beta pubblica qui su GitHub** — scarica lo zip dalla sezione [Releases](https://github.com/chiacchiosalvatore-hub/MindFlow/releases) e segui la sezione «Installazione per utenti» qui sotto. Chrome Web Store arriva come Fase 2, dopo la validazione dei segnali.
 
+## English summary (beta)
+
+**MindFlow** is an open-source (MIT) Chrome extension that turns long AI chats into a private, local knowledge graph: semantic chapters, compressed checkpoints, memory you can re-inject into new conversations. Everything runs on your machine — no servers, no telemetry; your API keys live only in your browser.
+
+- Works with the engine you already own: **Ollama, LM Studio, llama.cpp, vLLM** (local) or any cloud API with your own key. It attaches to ChatGPT, Claude, Gemini and Chat GLM pages, and the side panel doubles as a direct chat UI for your local model (endpoint autodetect + wrong-port auto-fix).
+- **Install (beta, no store):** download the zip from [Releases](https://github.com/chiacchiosalvatore-hub/MindFlow/releases) → unzip → `chrome://extensions` → enable **Developer mode** → **Load unpacked** → select the extracted folder → point MindFlow to your engine endpoint.
+- **Honest note:** the UI is currently **in Italian**; full English localization is the next roadmap item (v1.3). If that matters to you, star/watch the repo or open an issue — it genuinely helps prioritization.
+- Docs: [Showcase](https://chiacchiosalvatore-hub.github.io/MindFlow/) · [Security audit](docs/AUDIT-SICUREZZA.md) · [Privacy policy](docs/privacy-policy.html) · [Roadmap](ROADMAP.md)
+
 ## Cos'è
 
 MindFlow porta nel browser un'interfaccia completa verso il proprio modello locale:

@@ -38,8 +38,12 @@ segnali e si decide l'invio CWS (§ 1).
 - [ ] Rendere il repository pubblico (azione da dashboard dell'autore)
 - [ ] Attivare GitHub Pages: Settings → Pages → «Deploy from a branch» → `main` → `/docs` (azione da dashboard, una sola volta)
 - [ ] Creare la Release `v1.2.2` e caricare `mindflow-extension-v1.2.2.zip` (zip già pronto in locale, 166 KB)
-- [ ] Post di lancio: Show HN, r/LocalLLaMA, r/chrome_extensions, community italiane local-LLM
+- [ ] Post di lancio: Show HN, r/LocalLLaMA, r/chrome_extensions, community IT — **testi pronti in [docs/POST-LANCIO.md](docs/POST-LANCIO.md)** (pubblicazione manuale dell'autore, solo dopo Release + Pages attivi)
 - [ ] Recensione dei segnali (Insights → Traffic: visitatori unici e cloni, star, issue) e decisione go/no-go per CWS
+- [ ] (Durante la finestra di validazione) Localizzazione inglese v1.3 — piano dettagliato in [docs/PIANO-I18N-INGLESE.md](docs/PIANO-I18N-INGLESE.md)
+
+Guida passo-passo delle azioni da dashboard (public, Pages, Release, con template
+della descrizione della Release): [docs/GUIDA-DASHBOARD.md](docs/GUIDA-DASHBOARD.md).
 
 Nota: la GIF demo (45-60 s, storyboard in PUBBLICAZIONE.md § 3) entra in README
 e vetrina non appena l'autore la registra; nel frattempo la vetrina usa uno
