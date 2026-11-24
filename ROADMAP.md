@@ -14,7 +14,7 @@ in locale e la voce AMO si riapre dopo una prova reale (vedi [PUBBLICAZIONE.md](
 
 - [ ] Rigenerare le icone PNG (`python3 scripts/make-extension-icons.py`) e includerle nel pacchetto
 - [ ] Packaging con `scripts/build-extension.sh` (attenzione: contiene percorsi assoluti dell'ambiente originale `/home/z/my-project/...`, adattarli prima)
-- [ ] Account sviluppatore Chrome Web Store: quota una tantum di 5 USD + dichiarazione trader/non-trader (DSA UE: chi vendе è «trader» ed esibisce in scheda nome, telefono SMS-verificato e indirizzo; lancio gratuito senza monetizzazione → «non-trader» dichiarabile)
+- [ ] Account sviluppatore Chrome Web Store: quota una tantum di 5 USD + dichiarazione trader/non-trader (DSA UE: chi vende è «trader» ed esibisce in scheda nome, telefono SMS-verificato e indirizzo; lancio gratuito senza monetizzazione → «non-trader» dichiarabile)
 - [ ] Materiali per lo store: descrizioni (breve 132 caratteri + estesa), 1-5 screenshot 1280x800, GIF demo 45-60 s (script `scripts/shot-*`)
 - [ ] Informativa privacy per lo store: nessuna telemetria, nessun dato raccolto, chiavi API solo in `chrome.storage` locale, endpoint LLM locale configurabile dall'utente (serve un URL pubblico: pagina statica / GitHub Pages)
 - [ ] Giustificazione dei permessi per la revisione (storage, clipboardWrite, scripting, content script «tutti i siti», host localhost+API cloud) — tabella pronta in [PUBBLICAZIONE.md](PUBBLICAZIONE.md)
