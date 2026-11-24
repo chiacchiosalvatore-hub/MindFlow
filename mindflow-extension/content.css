@@ -1,0 +1,231 @@
+/*
+ * MindFlow Companion — stili del launcher e del frame del pannello
+ * iniettati nella pagina host. Tutti i selettori hanno prefisso #mindflow-*
+ * / .mf-* per evitare collisioni con lo stile del sito.
+ */
+
+#mindflow-launcher {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  z-index: 2147483000;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0;
+  height: 40px;
+  padding: 0 8px 0 10px;
+  margin: 0;
+  border: 1px solid rgba(16, 185, 129, 0.28);
+  border-right: 0;
+  border-radius: 10px 0 0 10px;
+  background: rgba(10, 14, 13, 0.92);
+  color: #d1d5db;
+  font: 600 12px/1 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.18s ease, transform 0.18s ease, border-color 0.18s ease;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+  box-sizing: border-box;
+}
+
+#mindflow-launcher:hover,
+#mindflow-launcher:focus-visible {
+  opacity: 1;
+  border-color: rgba(16, 185, 129, 0.55);
+  color: #e5e7eb;
+}
+
+#mindflow-launcher .mf-logo {
+  width: 16px;
+  height: 16px;
+  flex: none;
+}
+
+#mindflow-launcher .mf-logo line {
+  stroke: rgba(16, 185, 129, 0.75);
+  stroke-width: 1.6;
+}
+
+#mindflow-launcher .mf-logo circle {
+  fill: #10b981;
+  stroke: #ecfdf5;
+  stroke-width: 1;
+}
+
+#mindflow-launcher .mf-word {
+  display: inline-block;
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: max-width 0.22s ease, margin 0.22s ease;
+  margin-left: 0;
+}
+
+#mindflow-launcher:hover .mf-word,
+#mindflow-launcher:focus-visible .mf-word,
+#mindflow-launcher.mf-active .mf-word {
+  max-width: 84px;
+  margin-left: 7px;
+}
+
+#mindflow-launcher.mf-active {
+  opacity: 0.95;
+  border-color: rgba(16, 185, 129, 0.7);
+}
+
+/* Contatore messaggi: la pillola mostra di essere viva anche a pannello chiuso. */
+
+#mindflow-launcher .mf-badge {
+  position: absolute;
+  top: -7px;
+  left: -7px;
+  min-width: 17px;
+  height: 17px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: #10b981;
+  color: #04110c;
+  font: 700 10px/17px ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  text-align: center;
+  box-shadow: 0 0 0 2px rgba(10, 14, 13, 0.95);
+  opacity: 0;
+  transform: scale(0.4);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+}
+
+#mindflow-launcher.mf-has-messages .mf-badge {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Nuova risposta rilevata: la pillola pulsa due volte. */
+
+@keyframes mindflow-pill-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(16, 185, 129, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+#mindflow-launcher.mf-pulse {
+  animation: mindflow-pill-pulse 1.15s ease-out 2;
+  opacity: 0.95;
+}
+
+/* --- Frame del pannello ----------------------------------------------------- */
+
+#mindflow-panel-frame {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 2147482999;
+  width: 384px;
+  height: 100vh;
+  height: 100dvh;
+  margin: 0;
+  padding: 0;
+  background: #0a0e0d;
+  border-left: 1px solid rgba(16, 185, 129, 0.22);
+  box-shadow: -12px 0 34px rgba(0, 0, 0, 0.4);
+  transition: transform 0.24s cubic-bezier(0.32, 0.72, 0, 1);
+  box-sizing: border-box;
+}
+
+#mindflow-panel-frame.mf-open {
+  transform: translateX(0);
+}
+
+#mindflow-panel-frame.mf-closed {
+  transform: translateX(100%);
+  pointer-events: none;
+  visibility: hidden;
+}
+
+#mindflow-panel-iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  background: transparent;
+}
+
+@media (max-width: 640px) {
+  #mindflow-panel-frame {
+    width: 100vw;
+  }
+}
+
+/* Flash d'evidenziazione del messaggio raggiunto dal grafo (mindflow:goto-message) */
+
+@keyframes mindflow-goto-flash {
+  0% {
+    box-shadow: inset 0 0 0 2px rgba(16, 185, 129, 0.9), 0 0 0 6px rgba(16, 185, 129, 0.25);
+    background-color: rgba(16, 185, 129, 0.14);
+    border-radius: 10px;
+  }
+  55% {
+    box-shadow: inset 0 0 0 2px rgba(16, 185, 129, 0.9), 0 0 0 6px rgba(16, 185, 129, 0.25);
+    background-color: rgba(16, 185, 129, 0.14);
+    border-radius: 10px;
+  }
+  100% {
+    box-shadow: inset 0 0 0 0 rgba(16, 185, 129, 0);
+    background-color: transparent;
+  }
+}
+
+#mindflow-panel-frame ~ * .mf-goto-flash,
+[data-mindflow-companion] .mf-goto-flash {
+  animation: mindflow-goto-flash 2.2s ease-out;
+  scroll-margin: 120px;
+}
+
+/* Launcher orfano: l'estensione è stata aggiornata/ricaricata con la pagina
+   ancora aperta. Puntino rosso pulsante: un clic sul launcher ricarica la
+   pagina e riattiva tutto. */
+
+#mindflow-launcher.mf-stale {
+  opacity: 0.95;
+  border-color: rgba(248, 113, 113, 0.75);
+}
+
+#mindflow-launcher.mf-stale .mf-logo circle {
+  fill: #f87171;
+}
+
+#mindflow-launcher.mf-stale::after {
+  content: "";
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: #f87171;
+  box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.25);
+  animation: mindflow-stale-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes mindflow-stale-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.25);
+  }
+  50% {
+    box-shadow: 0 0 0 7px rgba(248, 113, 113, 0.1);
+  }
+}
+
+@media print {
+  #mindflow-launcher,
+  #mindflow-panel-frame {
+    display: none !important;
+  }
+}

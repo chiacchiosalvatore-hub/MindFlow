@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MindFlow Companion</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header class="pp-head">
+      <svg class="pp-logo" viewBox="0 0 24 24" aria-hidden="true">
+        <line x1="7" y1="6.5" x2="17" y2="6.5" />
+        <line x1="7" y1="6.5" x2="12" y2="17.5" />
+        <line x1="17" y1="6.5" x2="12" y2="17.5" />
+        <circle cx="7" cy="6.5" r="2.6" />
+        <circle cx="17" cy="6.5" r="2.6" />
+        <circle cx="12" cy="17.5" r="2.6" />
+      </svg>
+      <div class="pp-brand">
+        <strong>MindFlow Companion</strong>
+        <span id="pp-version">v—</span>
+      </div>
+    </header>
+
+    <section class="pp-block" aria-label="Stato motore">
+      <div class="pp-row">
+        <span id="pp-dot" class="pp-dot" title="Stato motore"></span>
+        <div class="pp-engine">
+          <strong id="pp-engine-name">Motore non configurato</strong>
+          <span id="pp-engine-detail">Apri le impostazioni per collegare Ollama o un motore cloud.</span>
+        </div>
+        <button id="pp-btn-retest" class="pp-mini" title="Riverifica la connessione">↻</button>
+      </div>
+      <p id="pp-engine-note" class="pp-note mf-hidden"></p>
+    </section>
+
+    <section class="pp-block" aria-label="Chat corrente">
+      <div class="pp-chat">
+        <span class="pp-chat-label">Questa scheda</span>
+        <span id="pp-tab-state">—</span>
+      </div>
+      <p id="pp-chat-detail" class="pp-note">—</p>
+    </section>
+
+    <section class="pp-actions" aria-label="Azioni rapide">
+      <button id="pp-btn-settings" class="pp-btn pp-btn-primary">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2" /><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1 1.55V21a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-1-1.55 1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.7 1.7 0 0 0 .34-1.87 1.7 1.7 0 0 0-1.55-1H3a2 2 0 1 1 0-4h.09a1.7 1.7 0 0 0 1.55-1 1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.7 1.7 0 0 0 1.87.34h.01a1.7 1.7 0 0 0 1-1.55V3a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1 1.55h.01a1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.7 1.7 0 0 0-.34 1.87v.01a1.7 1.7 0 0 0 1.55 1H21a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-1.55 1z" /></svg>
+        Impostazioni
+      </button>
+      <button id="pp-btn-panel" class="pp-btn">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v16H4zM9 4v16" /></svg>
+        Apri il grafo qui
+      </button>
+      <button id="pp-btn-collect" class="pp-btn">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" /></svg>
+        Raccogli la chat intera
+      </button>
+    </section>
+
+    <footer class="pp-foot">
+      <span>Tutto resta sul tuo computer.</span>
+      <span id="pp-capture" class="pp-capture"></span>
+    </footer>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

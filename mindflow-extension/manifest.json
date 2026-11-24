@@ -1,0 +1,57 @@
+{
+  "manifest_version": 3,
+  "name": "MindFlow Companion",
+  "version": "1.2.2",
+  "description": "Il grafo di memoria dei tuoi contenuti: un click, il motore divide chat e pagine web in capitoli semantici e comprime ogni capitolo in un checkpoint. Accanto a ChatGPT, Claude, Gemini e su QUALSIASI pagina di testo (wiki, articoli, documentazione).",
+  "permissions": ["storage", "clipboardWrite", "scripting"],
+  "host_permissions": [
+    "http://localhost/*",
+    "http://127.0.0.1/*",
+    "http://0.0.0.0/*",
+    "https://api.openai.com/*",
+    "https://api.anthropic.com/*",
+    "https://chatgpt.com/*",
+    "https://*.chatgpt.com/*",
+    "https://claude.ai/*",
+    "https://*.claude.ai/*",
+    "https://gemini.google.com/*",
+    "https://*.space-z.ai/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "action": {
+    "default_title": "MindFlow Companion",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["adapters.js", "content.js"],
+      "css": ["content.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["panel.html", "panel.css", "panel.js", "net-capture.js"],
+      "matches": ["http://*/*", "https://*/*"]
+    }
+  ],
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  }
+}

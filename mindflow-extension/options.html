@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <title>MindFlow Companion — Impostazioni</title>
+    <link rel="stylesheet" href="options.css" />
+  </head>
+  <body>
+    <main class="wrap">
+      <header class="head">
+        <svg class="logo" viewBox="0 0 24 24" aria-hidden="true">
+          <line x1="7" y1="6.5" x2="17" y2="6.5" />
+          <line x1="7" y1="6.5" x2="12" y2="17.5" />
+          <line x1="17" y1="6.5" x2="12" y2="17.5" />
+          <circle cx="7" cy="6.5" r="2.6" />
+          <circle cx="17" cy="6.5" r="2.6" />
+          <circle cx="12" cy="17.5" r="2.6" />
+        </svg>
+        <div>
+          <h1>MindFlow Companion</h1>
+          <p>Impostazioni del motore di riassunto e del comportamento del pannello.</p>
+        </div>
+      </header>
+
+      <section class="card">
+        <h2>Motore</h2>
+        <p class="hint">
+          Il motore comprime i segmenti di chat in checkpoint. Può essere un modello
+          <strong>locale</strong> (Ollama, LM Studio, llama.cpp, vLLM: gira sul tuo computer,
+          gratis e privato) oppure una <strong>API</strong> (OpenAI, Anthropic).
+        </p>
+
+        <div class="row">
+          <label for="opt-kind">Tipo di motore</label>
+          <select id="opt-kind">
+            <option value="ollama">Ollama (nativo, http://127.0.0.1:11434)</option>
+            <option value="openai-compat">OpenAI-compatibile locale (LM Studio, llama.cpp, vLLM…)</option>
+            <option value="openai">OpenAI (api.openai.com)</option>
+            <option value="anthropic">Anthropic (api.anthropic.com)</option>
+          </select>
+        </div>
+
+        <div class="row" id="row-base">
+          <label for="opt-base">Endpoint base</label>
+          <input id="opt-base" type="text" placeholder="http://127.0.0.1:11434" />
+          <p class="hint" id="base-hint">
+            Ollama: <code>http://127.0.0.1:11434</code> — LM Studio: <code>http://127.0.0.1:1234/v1</code> —
+            llama.cpp: <code>http://127.0.0.1:8080/v1</code>
+          </p>
+        </div>
+
+        <div class="row">
+          <label for="opt-model">Modello</label>
+          <input id="opt-model" type="text" list="model-list" placeholder="es. qwen2.5:7b-instruct" />
+          <datalist id="model-list"></datalist>
+          <p class="hint">Per i checkpoint basta un modello piccolo (3B–8B): veloce e gratuito. Per Ollama usa l'ID esatto di <code>ollama list</code>.</p>
+        </div>
+
+        <div class="row mf-hidden" id="row-openai">
+          <label for="opt-openai">Chiave OpenAI</label>
+          <input id="opt-openai" type="password" placeholder="sk-…" autocomplete="off" />
+        </div>
+        <div class="row mf-hidden" id="row-anthropic">
+          <label for="opt-anthropic">Chiave Anthropic</label>
+          <input id="opt-anthropic" type="password" placeholder="sk-ant-…" autocomplete="off" />
+        </div>
+        <div class="row mf-hidden" id="row-compat">
+          <label for="opt-compat">Chiave (opzionale)</label>
+          <input id="opt-compat" type="password" placeholder="Bearer opzionale per il server locale" autocomplete="off" />
+        </div>
+
+        <div class="test-row">
+          <button id="btn-detect" class="btn">Rileva automaticamente</button>
+          <button id="btn-test" class="btn btn-primary">Test connessione</button>
+          <button id="btn-try" class="btn">Prova riassunto</button>
+          <span id="test-result" class="test-result" role="status" aria-live="polite"></span>
+        </div>
+        <p class="hint" id="detect-hint">
+          «Rileva automaticamente» prova Ollama, LM Studio, llama.cpp, vLLM, Jan, KoboldCpp,
+          GPT4All e text-generation-webui sulle porte predefinite e compila i campi per te.
+          «Prova riassunto» chiede al motore di comprimere un segmento d'esempio: è la verifica
+          END-TO-END che il checkpoint verrà generato dal modello configurato.
+        </p>
+        <p class="hint">
+          Le chiavi restano nel <strong>chrome.storage locale</strong> del tuo browser: non lasciano
+          mai il computer, tranne verso il provider che scegli. MindFlow non ha alcun server.
+        </p>
+      </section>
+
+      <section class="card mf-hidden" id="mf-unlock">
+        <h2>Sblocca Ollama (una volta sola)</h2>
+        <p class="hint">
+          Ollama, per sicurezza, accetta dal browser solo le pagine su <code>http://localhost</code>.
+          Un'estensione parte da un'origine diversa (<code>chrome-extension://…</code>) e Ollama
+          rifiuta le sue richieste con l'errore <strong>403</strong>: per questo la connessione
+          risulta a posto ma ogni riassunto fallisce. Si sblocca una volta per tutte, in tre passi:
+        </p>
+        <ol class="mf-steps">
+          <li>
+            <strong>Esci da Ollama</strong> (icona nella barra delle applicazioni / menu in alto
+            &rarr; Esci o Quit). Non basta chiudere la finestra: deve proprio uscire.
+          </li>
+          <li>
+            <strong>Imposta la variabile d'ambiente <code>OLLAMA_ORIGINS</code></strong> con questo
+            valore (apre Ollama alle estensioni di Chrome, Edge, Firefox e Safari):
+            <div class="mf-cmd-row">
+              <code id="mf-unlock-value">chrome-extension://*,moz-extension://*,safari-web-extension://*</code>
+              <button type="button" class="btn mf-copy" data-copy="mf-unlock-value">Copia</button>
+            </div>
+            <details class="mf-os">
+              <summary>Windows</summary>
+              <p>
+                Impostazioni di sistema &rarr; cerca «variabili d'ambiente» &rarr; «Modifica le
+                variabili d'ambiente del tuo account» &rarr; <strong>Nuova</strong>: nome
+                <code>OLLAMA_ORIGINS</code>, valore quello copiato sopra &rarr; OK.
+                In alternativa, in PowerShell:
+                <code>setx OLLAMA_ORIGINS "chrome-extension://*,moz-extension://*,safari-web-extension://*"</code>
+              </p>
+            </details>
+            <details class="mf-os">
+              <summary>macOS</summary>
+              <p>
+                Terminale:
+                <code>launchctl setenv OLLAMA_ORIGINS "chrome-extension://*,moz-extension://*,safari-web-extension://*"</code>
+              </p>
+            </details>
+            <details class="mf-os">
+              <summary>Linux</summary>
+              <p>
+                Con systemd: <code>systemctl edit ollama.service</code> e aggiungi
+                <code>[Service]<br />Environment="OLLAMA_ORIGINS=chrome-extension://*,moz-extension://*,safari-web-extension://*"</code>
+                poi <code>systemctl daemon-reload &amp;&amp; systemctl restart ollama</code>.<br />
+                Se lo avvii a mano:
+                <code>OLLAMA_ORIGINS="chrome-extension://*,moz-extension://*,safari-web-extension://*" ollama serve</code>
+              </p>
+            </details>
+          </li>
+          <li>
+            <strong>Riavvia Ollama</strong> dal menu Start / Launchpad / servizio, poi torna qui e
+            premi di nuovo <strong>«Test connessione»</strong> e <strong>«Prova riassunto»</strong>.
+          </li>
+        </ol>
+        <p class="hint">
+          Nota: la variabile deve essere impostata <strong>prima</strong> di avviare Ollama — se
+          Ollama era già in esecuzione, non la vede: esci, imposta, riavvia. Se preferisci aprire
+          Ollama a qualsiasi pagina web, usa come valore <code>*</code> (meno restrittivo: scelta tua).
+        </p>
+      </section>
+
+      <section class="card" id="mf-troubleshoot">
+        <h2>Non riesco a connettermi — guida completa</h2>
+        <p class="hint">
+          Prima cosa: <strong>lascia perdere il dubbio «endpoint riconosciuto ma motore no»</strong> —
+          dietro quasi sempre c'è una <strong>porta diversa</strong> o un CORS spento, entrambi sistemabili
+          in un minuto. Leggi l'errore che vedi e segui i passi della sezione giusta qui sotto.
+          (Questa guida si apre da sola quando un test non passa.)
+        </p>
+        <ol class="mf-steps">
+          <li>
+            <strong>La mappa degli errori</strong>
+            <p class="hint" style="margin-top:6px">
+              «Motore non raggiungibile» → il server non è avviato oppure <strong>la porta è sbagliata</strong> ·
+              «Errore 403» → il server rifiuta le richieste dell'estensione (CORS) ·
+              «model not found / modello assente» → il nome del modello non combacia ·
+              «risposta priva di contenuto» → il modello è muto (file corrotti o disco esterno).
+            </p>
+          </li>
+          <li>
+            <strong>LM Studio (porta + CORS: il caso più comune)</strong>
+            <ol class="mf-steps">
+              <li>
+                Apri LM Studio → scheda <strong>Developer (Sviluppo)</strong> → <strong>Start Server</strong>.
+                Il server deve restare acceso mentre usi MindFlow.
+              </li>
+              <li>
+                Guarda l'indirizzo mostrato lì accanto: è l'endpoint <strong>VERO</strong>, porta compresa
+                (es. <code>http://127.0.0.1:1235/v1</code>). LM Studio parte sulla 1234 ma, se la trova
+                occupata, <strong>sceglie da solo la successiva</strong> (1235, 1236…): è il motivo classico
+                per cui «l'endpoint sembrava riconosciuto ma il motore non rispondeva». Incolla quel
+                valore identico nel campo Endpoint base — o sbaglia pure: <strong>«Test connessione»
+                corregge la porta da solo</strong> cercando il server sulle porte vicine.
+              </li>
+              <li>
+                Nelle impostazioni del server attiva <strong>Enable CORS</strong>: senza di esso il test
+                può collegarsi ma ogni riassunto riceve un 403.
+              </li>
+              <li>
+                Carica il modello e <strong>copia la chiave esatta dall'elenco</strong>
+                (es. <code>lmstudio-community/Qwen3.5-9B-abliterated-GGUF</code>): puoi anche scrivere
+                «qwen3.5 9b abliterated» a mano, il campo si corregge da solo al primo test.
+              </li>
+            </ol>
+          </li>
+          <li>
+            <strong>Ollama</strong>
+            <ol class="mf-steps">
+              <li>
+                Avvia il server: nel terminale <code>ollama serve</code> (su app desktop: apri l'app, il
+                server parte da solo). Porta predefinita <code>http://127.0.0.1:11434</code> — senza <code>/v1</code>
+                (se lo incolli, lo tolgo io).
+              </li>
+              <li>
+                Nome del modello esatto con <code>ollama list</code> (es. <code>gemma3:4b</code>, non «gemma»).
+              </li>
+              <li>
+                Se vedi <strong>403</strong>: è il blocco estensioni di Ollama — segui la guida
+                «Sblocca Ollama» (qui sopra, si apre da sola): variabile <code>OLLAMA_ORIGINS</code>
+                + riavvio completo.
+              </li>
+            </ol>
+          </li>
+          <li>
+            <strong>Controlli generali (tutti i motori)</strong>
+            <ol class="mf-steps">
+              <li>URL in <code>http://</code> (non https), senza barra finale; per i server OpenAI-compatibili finisce in <code>/v1</code>.</li>
+              <li>Premi <strong>«Rileva automaticamente»</strong>: sondea Ollama (11434–11437), LM Studio (1234–1237), llama.cpp, vLLM, Jan, KoboldCpp, GPT4All e compila i campi da solo.</li>
+              <li>Antivirus/firewall aziendali possono filtrare le porte locali: prova <code>127.0.0.1</code> al posto di <code>localhost</code> (o viceversa: su alcuni Mac/IPv6 risponde solo uno dei due).</li>
+              <li>Se due motori girano insieme (es. Ollama e LM Studio), quello giusto si sceglie in «Tipo di motore»: «Rileva automaticamente» vede entrambi.</li>
+            </ol>
+          </li>
+        </ol>
+        <p class="hint">
+          Cosa fa MindFlow <strong>da solo</strong>, senza che tu faccia nulla: alla prima impostazione
+          dell'endpoint verifica il collegamento; se la porta scritta non risponde ma un server identico
+          è attivo su una porta vicina, <strong>la corregge e la salva</strong>; il nome del modello si
+          corregge da solo al test; il 403 viene spiegato con la cura giusta. Tu resta solo sull'ON/OFF
+          del server e sulla porta mostrata dalla sua scheda Developer.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>Comportamento</h2>
+        <p class="hint">
+          Il pannello non si apre né costruisce nulla da solo: premi
+          <strong>«Costruisci il grafo»</strong> quando vuoi. Il pulsante raccoglie la
+          conversazione (scorrimento compreso), il motore la divide in capitoli semantici
+          e comprime ogni capitolo in un checkpoint. La pillola laterale mostra solo il
+          contatore dei messaggi letti.
+        </p>
+      </section>
+
+      <footer class="foot">
+        <span>MindFlow Companion — companion di memoria per ChatGPT, Claude e Gemini.</span>
+      </footer>
+    </main>
+
+    <script src="engine-client.js"></script>
+    <script src="options.js"></script>
+  </body>
+</html>

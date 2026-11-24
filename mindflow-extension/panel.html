@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MindFlow Companion</title>
+    <link rel="stylesheet" href="panel.css" />
+  </head>
+  <body>
+    <header class="mf-head">
+      <div class="mf-brand">
+        <svg class="mf-brand-logo" viewBox="0 0 24 24" aria-hidden="true">
+          <line x1="7" y1="6.5" x2="17" y2="6.5" />
+          <line x1="7" y1="6.5" x2="12" y2="17.5" />
+          <line x1="17" y1="6.5" x2="12" y2="17.5" />
+          <circle cx="7" cy="6.5" r="2.6" />
+          <circle cx="17" cy="6.5" r="2.6" />
+          <circle cx="12" cy="17.5" r="2.6" />
+        </svg>
+        <div class="mf-brand-text">
+          <h1>MindFlow</h1>
+          <p id="mf-session-title">In attesa della chat…</p>
+        </div>
+      </div>
+      <div class="mf-head-actions">
+        <span id="mf-mode-badge" class="mf-badge mf-hidden" title="Modalità demo: nessun motore collegato">demo</span>
+        <span id="mf-engine-label" class="mf-engine-label" title="Stato del motore di riassunto"></span>
+        <span id="mf-engine-dot" class="mf-dot" title="Stato motore"></span>
+        <button id="mf-btn-import" class="mf-icon-btn" title="Importa una chat passata" aria-label="Importa una chat passata">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" /></svg>
+        </button>
+        <button id="mf-btn-sessions" class="mf-icon-btn" title="Sessioni e chatbot" aria-label="Sessioni e chatbot">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 8.5 4.75v9.5L12 21l-8.5-4.75v-9.5L12 2Zm0 0v9.5m8.5-4.75L12 11.5 3.5 6.75" /></svg>
+        </button>
+        <button id="mf-btn-width" class="mf-icon-btn" title="Modalità Studio: grafo largo a destra, chat a sinistra" aria-label="Attiva o disattiva la modalità Studio">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" /></svg>
+        </button>
+        <button id="mf-btn-settings" class="mf-icon-btn" title="Impostazioni motore" aria-label="Apri impostazioni motore">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2" /><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1 1.55V21a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-1-1.55 1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.7 1.7 0 0 0 .34-1.87 1.7 1.7 0 0 0-1.55-1H3a2 2 0 1 1 0-4h.09a1.7 1.7 0 0 0 1.55-1 1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.7 1.7 0 0 0 1.87.34h.01a1.7 1.7 0 0 0 1-1.55V3a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1 1.55h.01a1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.7 1.7 0 0 0-.34 1.87v.01a1.7 1.7 0 0 0 1.55 1H21a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-1.55 1z" /></svg>
+        </button>
+        <button id="mf-btn-close" class="mf-icon-btn" title="Nascondi pannello" aria-label="Nascondi pannello MindFlow">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12" /></svg>
+        </button>
+      </div>
+    </header>
+
+    <div id="mf-sess-menu" class="mf-sess-menu mf-hidden" role="menu" aria-label="Sessioni e chatbot">
+      <div id="mf-sess-list" class="mf-sess-list"></div>
+      <div class="mf-sess-open">
+        <p>Apri un chatbot in una nuova scheda:</p>
+        <div class="mf-sess-bots">
+          <button data-bot="https://chatgpt.com/">ChatGPT</button>
+          <button data-bot="https://claude.ai/new">Claude</button>
+          <button data-bot="https://gemini.google.com/app">Gemini</button>
+          <button data-bot="/chat">Chat GLM</button>
+        </div>
+      </div>
+    </div>
+
+    <section class="mf-stats" aria-label="Statistiche di contesto">
+      <div class="mf-stat">
+        <span id="mf-stat-msgs">0</span>
+        <label>messaggi letti</label>
+      </div>
+      <div class="mf-stat">
+        <span id="mf-stat-cps">0</span>
+        <label>checkpoint</label>
+      </div>
+      <div class="mf-stat">
+        <span id="mf-stat-tok">0</span>
+        <label>token compilati</label>
+      </div>
+    </section>
+
+    <div id="mf-legend" class="mf-legend mf-hidden" aria-hidden="true">
+      <span><span class="mf-leg mf-leg-live"></span>percorso attivo</span>
+    </div>
+
+    <section class="mf-graph-wrap" aria-label="Grafo dei checkpoint">
+      <div id="mf-graph-empty" class="mf-empty">
+        <p><strong>Il grafo nasce con un click.</strong></p>
+        <p>Raccolgo la conversazione, il motore la divide in capitoli e comprime ogni capitolo in un checkpoint: una catena leggibile come un indice. Puoi anche partire da testo incollato o da un file.</p>
+        <button id="mf-empty-build" class="mf-btn mf-btn-primary mf-hidden">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" /></svg>
+          <span id="mf-empty-build-label">Costruisci il grafo</span>
+        </button>
+        <p class="mf-empty-hint">Hai una chat lunga del passato? Usa <button id="mf-empty-import" class="mf-linklike">Importa</button> (pagina, testo o file) per costruire il grafo da subito.</p>
+      </div>
+      <div id="mf-graph-scroll" class="mf-graph-scroll mf-hidden">
+        <svg id="mf-graph" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Grafo dei checkpoint"></svg>
+      </div>
+      <div id="mf-zoom" class="mf-zoom mf-hidden" aria-label="Controlli di zoom">
+        <button id="mf-z-in" title="Zoom in" aria-label="Zoom avanti">+</button>
+        <button id="mf-z-out" title="Zoom out" aria-label="Zoom indietro">−</button>
+        <button id="mf-z-fit" title="Adatta e centra" aria-label="Adatta la vista">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" /></svg>
+        </button>
+      </div>
+    </section>
+
+    <section id="mf-details" class="mf-details mf-hidden" aria-label="Dettagli checkpoint">
+      <div class="mf-details-head">
+        <h2 id="mf-d-title">—</h2>
+        <button id="mf-d-close" class="mf-icon-btn" title="Chiudi dettagli" aria-label="Chiudi dettagli">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12" /></svg>
+        </button>
+      </div>
+      <p id="mf-d-meta" class="mf-d-meta"></p>
+      <p id="mf-d-summary"></p>
+      <ul id="mf-d-decisions" class="mf-d-decisions"></ul>
+      <div class="mf-d-actions">
+        <button id="mf-d-goto" class="mf-btn mf-btn-ghost mf-hidden">Vai al messaggio</button>
+        <button id="mf-d-activate" class="mf-btn mf-btn-ghost mf-hidden">Imposta come checkpoint attivo</button>
+      </div>
+    </section>
+
+    <section class="mf-actions" aria-label="Azioni principali">
+      <button id="mf-btn-checkpoint" class="mf-btn mf-btn-primary">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21V4a1 1 0 0 1 1-1h12l-2.5 4L17 11H6" /></svg>
+        <span>Costruisci il grafo</span>
+        <em id="mf-cp-badge" class="mf-suggest mf-hidden"></em>
+      </button>
+      <button id="mf-btn-compile" class="mf-btn">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 6-6 6 6 6M16 6l6 6-6 6" /></svg>
+        <span>Compila contesto</span>
+      </button>
+    </section>
+
+    <section class="mf-secondary" aria-label="Uso del contesto">
+      <button id="mf-btn-copy" class="mf-btn mf-btn-ghost">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2" /><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" /></svg>
+        Copia
+      </button>
+      <button id="mf-btn-inject" class="mf-btn mf-btn-ghost">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3" /></svg>
+        Incolla nella chat
+      </button>
+    </section>
+
+    <section class="mf-compile" aria-label="Payload del contesto compilato">
+      <pre id="mf-payload" class="mf-payload">Il contesto compilato apparirà qui: percorso di checkpoint + messaggi vivi dopo l'ultimo checkpoint. Copialo o iniettalo direttamente nel prompt della chat.</pre>
+    </section>
+
+    <footer class="mf-foot">
+      <span id="mf-status" class="mf-status" role="status" aria-live="polite">Leggo la chat in silenzio…</span>
+      <button id="mf-btn-reset" class="mf-icon-btn mf-danger" title="Azzera la memoria di questa chat" aria-label="Azzera memoria di questa chat">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2m3 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6h14Z" /></svg>
+      </button>
+    </footer>
+
+    <section id="mf-import" class="mf-import mf-hidden" aria-label="Importa una chat passata" role="dialog" aria-modal="true">
+      <div class="mf-import-head">
+        <h2>Importa una chat passata</h2>
+        <button id="mf-i-close" class="mf-icon-btn" title="Chiudi importazione" aria-label="Chiudi importazione">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12" /></svg>
+        </button>
+      </div>
+      <p class="mf-import-sub">Costruisci il grafo da una conversazione lunga che esiste già: la pagina aperta, il testo incollato o l'esportazione di ChatGPT.</p>
+      <div class="mf-import-grid">
+        <button id="mf-i-page" class="mf-src">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" /><path d="m7 8 4 4-4 4m6 0h4" /></svg>
+          <strong>Raccogli questa pagina</strong>
+          <span>Scorre la chat aperta dall'inizio alla fine e raccoglie ogni messaggio.</span>
+        </button>
+        <button id="mf-i-paste" class="mf-src">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="2" width="8" height="4" rx="1" /><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" /></svg>
+          <strong>Incolla testo</strong>
+          <span>Qualsiasi chat: copiala e incollala, riconosco i turni da solo.</span>
+        </button>
+        <button id="mf-i-file" class="mf-src">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z" /><path d="M14 2v6h6" /></svg>
+          <strong>Da file</strong>
+          <span>Export .json di ChatGPT, oppure .txt / .md.</span>
+        </button>
+      </div>
+      <div id="mf-i-paste-box" class="mf-i-paste-box mf-hidden">
+        <input id="mf-i-title" type="text" placeholder="Titolo del grafo (opzionale)" />
+        <textarea id="mf-i-text" placeholder="Incolla qui la conversazione… Riconosco etichette come “You said:”, “ChatGPT said:”, “Utente:”, “**[UTENTE]**”. Se non ci sono etichette alterno i turni automaticamente."></textarea>
+        <div class="mf-i-row">
+          <span id="mf-i-count">—</span>
+          <button id="mf-i-run" class="mf-btn mf-btn-primary">Crea il grafo</button>
+        </div>
+      </div>
+      <div id="mf-i-error" class="mf-i-error mf-hidden">
+        <p id="mf-i-error-text"></p>
+        <div class="mf-i-row">
+          <button id="mf-i-diag" class="mf-btn mf-btn-ghost">Diagnostica pagina e copia</button>
+          <button id="mf-i-paste-alt" class="mf-linklike">Prova con “Incolla testo”</button>
+        </div>
+        <pre id="mf-i-diag-out" class="mf-i-diag-out mf-hidden"></pre>
+      </div>
+      <input id="mf-i-input" type="file" accept=".txt,.md,.markdown,.json,application/json,text/plain" class="mf-hidden" />
+      <div id="mf-i-progress" class="mf-i-progress mf-hidden">
+        <div class="mf-i-bar"><div id="mf-i-fill"></div></div>
+        <p id="mf-i-log">Preparazione…</p>
+        <button id="mf-i-cancel" class="mf-btn mf-btn-ghost">Annulla</button>
+      </div>
+      <p class="mf-i-note">Sicurezza: tutto resta sul tuo computer (storage locale dell'estensione). Il riassunto usa solo il motore che hai configurato.</p>
+    </section>
+
+    <script src="adapters.js"></script>
+    <script src="engine-client.js"></script>
+    <script src="panel.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1251 @@
+/*
+ * MindFlow Companion — stile del pannello (pagina dell'estensione).
+ * Tema scuro coerente con l'app MindFlow: zinc + smeraldo.
+ */
+
+:root {
+  color-scheme: dark;
+  --mf-bg: #0a0e0d;
+  --mf-panel: #101614;
+  --mf-card: #131a18;
+  --mf-border: #22302b;
+  --mf-border-soft: #1a2420;
+  --mf-text: #e4e9e7;
+  --mf-text-dim: #8b9791;
+  --mf-text-faint: #5e6a64;
+  --mf-accent: #10b981;
+  --mf-accent-soft: rgba(16, 185, 129, 0.14);
+  --mf-accent-border: rgba(16, 185, 129, 0.4);
+  --mf-danger: #f87171;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--mf-bg);
+  color: var(--mf-text);
+  font: 13px/1.5 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.mf-hidden {
+  display: none !important;
+}
+
+/* --- Header ----------------------------------------------------------------- */
+
+.mf-head {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--mf-border-soft);
+  background: rgba(16, 22, 20, 0.7);
+}
+
+.mf-brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+}
+
+.mf-brand-logo {
+  width: 22px;
+  height: 22px;
+  flex: none;
+}
+
+.mf-brand-logo line {
+  stroke: var(--mf-accent);
+  stroke-width: 1.7;
+}
+
+.mf-brand-logo circle {
+  fill: var(--mf-accent);
+  stroke: #ecfdf5;
+  stroke-width: 1;
+}
+
+.mf-brand-text h1 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.mf-brand-text p {
+  margin: 1px 0 0;
+  font-size: 10.5px;
+  color: var(--mf-text-dim);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
+}
+
+.mf-head-actions {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex: none;
+}
+
+.mf-badge {
+  font-size: 9.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #fbbf24;
+  border: 1px solid rgba(251, 191, 36, 0.4);
+  background: rgba(251, 191, 36, 0.1);
+  border-radius: 999px;
+  padding: 2px 7px;
+}
+
+.mf-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--mf-text-faint);
+  flex: none;
+}
+
+/* Etichetta VISIBILE del motore accanto al punto: il pannello mostra SEMPRE
+ * quale modello sta comprimendo i checkpoint (es. "Ollama · gemma3:latest"),
+ * o perché sta cadendo sull'euristico ("non raggiungibile → euristico"). */
+.mf-engine-label {
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  color: var(--mf-text-faint);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 170px;
+}
+
+.mf-engine-label.mf-ok {
+  color: var(--mf-accent);
+}
+
+.mf-engine-label.mf-warn {
+  color: #fbbf24;
+}
+
+/* Stato «Ollama blocca l'estensione» (403): la pillola diventa un bottone
+ * verso la guida di sblocco nelle impostazioni. */
+.mf-engine-label.mf-click {
+  cursor: pointer;
+  text-decoration: underline dotted;
+  text-underline-offset: 2px;
+}
+
+.mf-dot.mf-ok {
+  background: var(--mf-accent);
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.7);
+}
+
+.mf-dot.mf-err {
+  background: var(--mf-danger);
+}
+
+/* Ambra: motore impostato ma non verificato/non raggiungibile. */
+.mf-dot.mf-warn {
+  background: #fbbf24;
+  box-shadow: 0 0 6px rgba(251, 191, 36, 0.6);
+}
+
+.mf-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--mf-text-dim);
+  cursor: pointer;
+}
+
+.mf-icon-btn:hover {
+  color: var(--mf-text);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--mf-border);
+}
+
+.mf-icon-btn svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.mf-icon-btn.mf-danger:hover {
+  color: var(--mf-danger);
+  border-color: rgba(248, 113, 113, 0.4);
+}
+
+/* --- Statistiche ------------------------------------------------------------- */
+
+.mf-stats {
+  flex: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 6px;
+  padding: 10px 12px 0;
+}
+
+.mf-stat {
+  border: 1px solid var(--mf-border-soft);
+  background: var(--mf-card);
+  border-radius: 10px;
+  padding: 7px 9px;
+  text-align: center;
+}
+
+.mf-stat span {
+  display: block;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--mf-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.mf-stat label {
+  display: block;
+  margin-top: 1px;
+  font-size: 9.5px;
+  color: var(--mf-text-faint);
+  letter-spacing: 0.3px;
+}
+
+/* --- Grafo ------------------------------------------------------------------- */
+
+.mf-graph-wrap {
+  flex: 1 1 auto;
+  min-height: 150px;
+  margin: 10px 12px 0;
+  border: 1px solid var(--mf-border-soft);
+  border-radius: 12px;
+  background:
+    radial-gradient(420px 260px at 8% 12%, rgba(16, 185, 129, 0.10), transparent 60%),
+    radial-gradient(360px 240px at 95% 85%, rgba(45, 212, 191, 0.07), transparent 65%),
+    radial-gradient(circle at 1px 1px, rgba(148, 163, 152, 0.13) 1px, transparent 0) 0 0 / 14px 14px,
+    var(--mf-panel);
+  position: relative;
+  overflow: hidden;
+  animation: mf-aurora 16s ease-in-out infinite alternate;
+}
+
+@keyframes mf-aurora {
+  from { background-position: 0% 0%, 100% 100%, 0 0, 0 0; }
+  to { background-position: 26% 34%, 70% 62%, 0 0, 0 0; }
+}
+
+.mf-legend {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 14px 0;
+  font-size: 9px;
+  color: var(--mf-text-faint);
+}
+
+.mf-leg {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  margin-right: 4px;
+  vertical-align: -1px;
+}
+
+.mf-leg-live {
+  background: var(--mf-accent);
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.8);
+}
+
+.mf-graph-scroll {
+  position: absolute;
+  inset: 0;
+  overflow: auto;
+}
+
+.mf-empty {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 16px 22px;
+  text-align: center;
+}
+
+.mf-empty p {
+  margin: 0;
+  font-size: 11.5px;
+  color: var(--mf-text-dim);
+  max-width: 300px;
+}
+
+.mf-empty strong {
+  color: var(--mf-text);
+  font-size: 12.5px;
+}
+
+/* --- Grafo: nodi e archi animati -------------------------------------------- */
+
+#mf-graph .mf-edge {
+  fill: none;
+  stroke: rgba(139, 151, 145, 0.17);
+  stroke-width: 1.4;
+}
+
+#mf-graph .mf-edge-live {
+  stroke: url(#mf-grad-edge);
+  stroke-width: 2.4;
+}
+
+#mf-graph .mf-edge-flow {
+  fill: none;
+  stroke: rgba(209, 250, 229, 0.95);
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-dasharray: 3 11;
+  animation: mf-dashflow 1.05s linear infinite;
+}
+
+@keyframes mf-dashflow {
+  to { stroke-dashoffset: -13; }
+}
+
+#mf-graph .mf-pulse {
+  fill: #6ee7b7;
+}
+
+#mf-graph .mf-halo {
+  fill: rgba(16, 185, 129, 0.16);
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: mf-halo 2.6s ease-in-out infinite;
+}
+
+@keyframes mf-halo {
+  0%, 100% { transform: scale(0.88); opacity: 0.6; }
+  50% { transform: scale(1.1); opacity: 0.12; }
+}
+
+#mf-graph .mf-node {
+  cursor: pointer;
+}
+
+#mf-graph .mf-n-body {
+  fill: url(#mf-grad-node);
+  stroke: #2b3a34;
+  stroke-width: 1.1;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.16s ease, stroke 0.15s ease, fill 0.2s ease;
+}
+
+#mf-graph .mf-node:hover .mf-n-body {
+  transform: scale(1.045);
+  stroke: #3f5349;
+}
+
+#mf-graph .mf-node.mf-root .mf-n-body {
+  fill: rgba(16, 185, 129, 0.045);
+  stroke-dasharray: 5 4;
+  stroke: #35463f;
+}
+
+#mf-graph .mf-node.mf-active .mf-n-body {
+  fill: url(#mf-grad-active);
+  stroke: var(--mf-accent);
+  stroke-width: 1.4;
+}
+
+#mf-graph .mf-node.mf-selected .mf-n-body {
+  stroke: #e5e7eb;
+}
+
+#mf-graph .mf-node.mf-active.mf-selected .mf-n-body {
+  stroke: var(--mf-accent);
+  stroke-width: 1.9;
+}
+
+#mf-graph .mf-n-title {
+  fill: var(--mf-text);
+  font-size: 11px;
+  font-weight: 600;
+  pointer-events: none;
+}
+
+#mf-graph .mf-node.mf-active .mf-n-title {
+  fill: #ecfdf5;
+}
+
+#mf-graph .mf-n-sub {
+  fill: var(--mf-text-faint);
+  font-size: 9px;
+  pointer-events: none;
+}
+
+#mf-graph .mf-n-stripe {
+  fill: rgba(52, 211, 153, 0.95);
+}
+
+#mf-graph .mf-n-stripe.mf-amber {
+  fill: #fbbf24;
+}
+
+/* Chip del capitolo (v1.0.0): il numero nella storia, su ogni nodo. */
+#mf-graph .mf-n-chip {
+  fill: rgba(16, 185, 129, 0.18);
+  stroke: rgba(52, 211, 153, 0.85);
+  stroke-width: 1;
+}
+
+#mf-graph .mf-node.mf-active .mf-n-chip {
+  fill: rgba(52, 211, 153, 0.32);
+  stroke: #6ee7b7;
+}
+
+#mf-graph .mf-n-chip-t {
+  fill: #a7f3d0;
+  font-size: 8.5px;
+  font-weight: 700;
+  pointer-events: none;
+}
+
+/* Ingresso scaglionato dei nodi nuovi (senza toccare il transform SVG). */
+#mf-graph .mf-node.mf-in {
+  animation: mf-fade-in 0.45s ease both;
+}
+
+#mf-graph .mf-node.mf-in .mf-n-body {
+  animation: mf-pop 0.5s cubic-bezier(0.2, 0.9, 0.25, 1.25) both;
+}
+
+@keyframes mf-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes mf-pop {
+  0% { transform: scale(0.66); opacity: 0; }
+  62% { transform: scale(1.06); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* --- Dettagli ---------------------------------------------------------------- */
+
+.mf-details {
+  flex: none;
+  margin: 10px 12px 0;
+  border: 1px solid var(--mf-accent-border);
+  border-radius: 12px;
+  background: var(--mf-card);
+  padding: 10px 12px;
+}
+
+.mf-details-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.mf-details h2 {
+  margin: 0;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--mf-text);
+}
+
+.mf-d-meta {
+  margin: 3px 0 6px;
+  font-size: 10px;
+  color: var(--mf-text-faint);
+}
+
+.mf-d-meta .mf-chip {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 6px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  border-radius: 999px;
+  border: 1px solid rgba(52, 211, 153, 0.45);
+  color: #6ee7b7;
+  background: rgba(16, 185, 129, 0.1);
+}
+
+.mf-d-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.mf-d-actions .mf-btn {
+  min-height: 30px;
+  padding: 5px 10px;
+  font-size: 11px;
+}
+
+#mf-d-summary {
+  margin: 0;
+  font-size: 11.5px;
+  color: var(--mf-text-dim);
+  max-height: 96px;
+  overflow-y: auto;
+}
+
+.mf-d-decisions {
+  margin: 7px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mf-d-decisions li {
+  position: relative;
+  padding-left: 14px;
+  font-size: 11px;
+  color: var(--mf-text-dim);
+  margin-top: 4px;
+}
+
+.mf-d-decisions li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 6px;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--mf-accent);
+  opacity: 0.8;
+}
+
+/* --- Azioni ------------------------------------------------------------------ */
+
+.mf-actions {
+  flex: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 10px 12px 0;
+}
+
+.mf-secondary {
+  flex: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 8px 12px 0;
+}
+
+.mf-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 38px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--mf-border);
+  background: var(--mf-card);
+  color: var(--mf-text);
+  font: 600 12px/1.2 ui-sans-serif, system-ui, sans-serif;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease, transform 0.06s ease;
+}
+
+.mf-btn svg {
+  width: 14px;
+  height: 14px;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.mf-btn:hover {
+  border-color: var(--mf-accent-border);
+  background: #18211e;
+}
+
+.mf-btn:active {
+  transform: translateY(1px);
+}
+
+.mf-btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+  pointer-events: none;
+}
+
+.mf-btn-primary {
+  border-color: var(--mf-accent-border);
+  background: var(--mf-accent-soft);
+  color: #a7f3d0;
+}
+
+.mf-btn-primary:hover {
+  background: rgba(16, 185, 129, 0.22);
+  border-color: var(--mf-accent);
+}
+
+.mf-btn-ghost {
+  background: transparent;
+  color: var(--mf-text-dim);
+}
+
+.mf-btn-ghost:hover {
+  color: var(--mf-text);
+}
+
+.mf-suggest {
+  position: absolute;
+  top: -7px;
+  right: -6px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: #fbbf24;
+  color: #422006;
+  font: 700 10px/18px ui-sans-serif, sans-serif;
+  text-align: center;
+  font-style: normal;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+#mf-btn-checkpoint.mf-suggesting {
+  animation: mf-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes mf-pulse {
+  0%,
+  100% {
+    border-color: var(--mf-accent-border);
+  }
+  50% {
+    border-color: #fbbf24;
+    box-shadow: 0 0 8px rgba(251, 191, 36, 0.35);
+  }
+}
+
+/* --- Payload ----------------------------------------------------------------- */
+
+.mf-compile {
+  flex: none;
+  padding: 10px 12px 0;
+}
+
+.mf-payload {
+  margin: 0;
+  max-height: 150px;
+  overflow: auto;
+  border: 1px solid var(--mf-border-soft);
+  border-radius: 10px;
+  background: #0d1211;
+  padding: 9px 11px;
+  font: 10.5px/1.55 ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: #b7c3bd;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* --- Footer ------------------------------------------------------------------ */
+
+.mf-foot {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 9px 12px 10px;
+}
+
+.mf-status {
+  font-size: 10.5px;
+  color: var(--mf-text-faint);
+  min-height: 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mf-status.mf-error {
+  color: var(--mf-danger);
+}
+
+.mf-status.mf-busy {
+  color: #fbbf24;
+}
+
+/* --- Modalità Studio ----------------------------------------------------------
+   Il pannello si allarga (62% viewport, max 820px): la chat resta a sinistra
+   e il grafo diventa la scena principale. */
+
+.mf-studio .mf-brand-text p {
+  max-width: 340px;
+}
+
+.mf-studio .mf-graph-wrap {
+  min-height: 260px;
+}
+
+.mf-studio .mf-stat span {
+  font-size: 17px;
+}
+
+.mf-studio .mf-payload {
+  max-height: 240px;
+  font-size: 11px;
+}
+
+.mf-studio .mf-details #mf-d-summary {
+  max-height: 150px;
+}
+
+#mf-btn-width.mf-on {
+  color: #a7f3d0;
+  background: rgba(16, 185, 129, 0.16);
+  border-color: rgba(16, 185, 129, 0.5);
+}
+
+/* --- Menu sessioni ------------------------------------------------------------ */
+
+.mf-sess-menu {
+  position: absolute;
+  top: 44px;
+  right: 10px;
+  z-index: 50;
+  width: 264px;
+  border: 1px solid var(--mf-border);
+  border-radius: 12px;
+  background: #0e1413;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
+  overflow: hidden;
+}
+
+.mf-sess-list {
+  max-height: 240px;
+  overflow-y: auto;
+  padding: 6px;
+}
+
+.mf-sess-empty {
+  margin: 4px 6px;
+  font-size: 10.5px;
+  color: var(--mf-text-faint);
+}
+
+.mf-sess-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+  padding: 7px 8px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--mf-text);
+  text-align: left;
+  cursor: pointer;
+}
+
+.mf-sess-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.mf-sess-item.mf-cur {
+  background: rgba(16, 185, 129, 0.12);
+}
+
+.mf-sess-dot {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  margin-top: 5px;
+  border-radius: 999px;
+  background: var(--mf-text-faint);
+}
+
+.mf-sess-dot.mf-live {
+  background: var(--mf-accent);
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.8);
+}
+
+.mf-sess-txt {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.mf-sess-txt strong {
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mf-sess-txt small {
+  font-size: 9.5px;
+  color: var(--mf-text-faint);
+}
+
+.mf-sess-open {
+  border-top: 1px solid var(--mf-border-soft);
+  padding: 8px 10px 10px;
+  background: rgba(16, 22, 20, 0.6);
+}
+
+.mf-sess-open p {
+  margin: 0 0 6px;
+  font-size: 9.5px;
+  color: var(--mf-text-faint);
+}
+
+.mf-sess-bots {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.mf-sess-bots button {
+  border: 1px solid var(--mf-border);
+  border-radius: 8px;
+  background: var(--mf-card);
+  color: var(--mf-text);
+  font: 600 10.5px/1.2 ui-sans-serif, system-ui, sans-serif;
+  padding: 6px 8px;
+  cursor: pointer;
+}
+
+.mf-sess-bots button:hover {
+  border-color: var(--mf-accent-border);
+  background: #18211e;
+}
+
+/* --- Zoom e pan del grafo ------------------------------------------------------ */
+
+.mf-zoom {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 5;
+}
+
+.mf-zoom button {
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--mf-border);
+  border-radius: 7px;
+  background: rgba(13, 18, 17, 0.92);
+  color: var(--mf-text-dim);
+  font: 700 13px/1 ui-sans-serif, sans-serif;
+  cursor: pointer;
+}
+
+.mf-zoom button:hover {
+  color: var(--mf-text);
+  border-color: var(--mf-accent-border);
+}
+
+.mf-zoom button svg {
+  width: 12px;
+  height: 12px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+}
+
+.mf-graph-scroll {
+  cursor: grab;
+}
+
+.mf-graph-scroll.mf-panning {
+  cursor: grabbing;
+  user-select: none;
+}
+
+#mf-graph {
+  display: block;
+}
+
+/* Effetti hover: vicini accesi, resto attenuato */
+
+#mf-graph .mf-edge.mf-edge-hot {
+  stroke: #34d399;
+  stroke-width: 2.6;
+  filter: url(#mf-glow);
+}
+
+#mf-graph .mf-edge.mf-edge-dim {
+  opacity: 0.1;
+}
+
+#mf-graph .mf-node.mf-node-dim {
+  opacity: 0.22;
+}
+
+#mf-graph .mf-node {
+  transition: opacity 0.18s ease;
+}
+
+/* Burst di particelle alla nascita di un checkpoint */
+
+#mf-graph .mf-burst circle {
+  fill: #6ee7b7;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: mf-burst-fly 0.95s cubic-bezier(0.15, 0.75, 0.3, 1) forwards;
+}
+
+@keyframes mf-burst-fly {
+  0% {
+    opacity: 0.95;
+    transform: translate(0, 0) scale(1);
+  }
+  70% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--dx, 20px), var(--dy, 20px)) scale(0.4);
+  }
+}
+
+/* --- Import -------------------------------------------------------------------- */
+
+.mf-import {
+  position: absolute;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 14px 16px;
+  background: linear-gradient(180deg, rgba(10, 14, 13, 0.98), rgba(10, 14, 13, 0.96));
+  overflow-y: auto;
+  animation: mf-fade-in 0.18s ease both;
+}
+
+.mf-import-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.mf-import-head h2 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--mf-text);
+}
+
+.mf-import-sub {
+  margin: 0;
+  font-size: 11px;
+  color: var(--mf-text-dim);
+}
+
+.mf-import-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.mf-src {
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 10px;
+  align-items: center;
+  text-align: left;
+  padding: 10px 12px;
+  border: 1px solid var(--mf-border);
+  border-radius: 12px;
+  background: var(--mf-card);
+  color: var(--mf-text);
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease, transform 0.08s ease;
+}
+
+.mf-src:hover {
+  border-color: var(--mf-accent-border);
+  background: #16201c;
+  transform: translateY(-1px);
+}
+
+.mf-src:active {
+  transform: translateY(0);
+}
+
+.mf-src svg {
+  grid-row: 1 / span 2;
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: var(--mf-accent);
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.mf-src strong {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.mf-src span {
+  margin-top: 2px;
+  font-size: 10.5px;
+  color: var(--mf-text-dim);
+}
+
+.mf-i-paste-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mf-i-paste-box input[type="text"],
+.mf-i-paste-box textarea {
+  width: 100%;
+  border: 1px solid var(--mf-border);
+  border-radius: 10px;
+  background: #0d1211;
+  color: var(--mf-text);
+  font: 12px/1.5 ui-sans-serif, system-ui, sans-serif;
+  padding: 9px 11px;
+  resize: vertical;
+}
+
+.mf-i-paste-box textarea {
+  min-height: 140px;
+  font: 11px/1.55 ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.mf-i-paste-box input:focus,
+.mf-i-paste-box textarea:focus {
+  outline: none;
+  border-color: var(--mf-accent-border);
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.12);
+}
+
+.mf-i-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.mf-i-row span {
+  font-size: 10.5px;
+  color: var(--mf-text-faint);
+}
+
+.mf-i-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid var(--mf-accent-border);
+  border-radius: 12px;
+  background: var(--mf-card);
+  padding: 12px;
+}
+
+.mf-i-bar {
+  height: 8px;
+  border-radius: 999px;
+  background: #0d1211;
+  border: 1px solid var(--mf-border-soft);
+  overflow: hidden;
+}
+
+#mf-i-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #059669, #34d399);
+  box-shadow: 0 0 10px rgba(52, 211, 153, 0.6);
+  transition: width 0.35s ease;
+}
+
+#mf-i-log {
+  margin: 0;
+  font-size: 11px;
+  color: var(--mf-text-dim);
+}
+
+.mf-i-note {
+  margin: auto 0 0;
+  font-size: 9.5px;
+  color: var(--mf-text-faint);
+}
+
+/* Errore di importazione con diagnostica DOM (visibile nel dialogo) */
+
+.mf-i-error {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid rgba(248, 113, 113, 0.35);
+  border-radius: 12px;
+  background: rgba(248, 113, 113, 0.07);
+  padding: 12px;
+}
+
+.mf-i-error p {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.55;
+  color: #fca5a5;
+}
+
+.mf-i-error .mf-i-row span {
+  font-size: 10px;
+}
+
+.mf-i-diag-out {
+  margin: 0;
+  max-height: 140px;
+  overflow: auto;
+  border-radius: 8px;
+  background: #0b100e;
+  border: 1px solid var(--mf-border-soft);
+  padding: 8px;
+  font: 9.5px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: var(--mf-text-dim);
+  white-space: pre-wrap;
+  word-break: break-all;
+  user-select: all;
+}
+
+.mf-linklike {
+  border: 0;
+  background: none;
+  color: #6ee7b7;
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+}
+
+.mf-empty-hint {
+  margin-top: 8px !important;
+  font-size: 10.5px;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #242f2a;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #31403a;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* --- v0.8.0/v0.9.0: banner contesto estensione invalidato --------------------
+ * Aggiunte additive: nessuna regola esistente viene toccata (la grafica
+ * approvata resta identica). Il banner ora contiene il bottone "Ricarica". */
+
+.mf-reload-banner {
+  flex: none;
+  margin: 10px 12px 0;
+  padding: 10px 12px;
+  border: 1px solid rgba(251, 191, 36, 0.5);
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(251, 191, 36, 0.14), rgba(251, 191, 36, 0.05));
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.mf-reload-banner strong {
+  font-size: 11px;
+  color: #fcd34d;
+  letter-spacing: 0.1px;
+}
+
+.mf-reload-banner span {
+  font-size: 10.5px;
+  line-height: 1.5;
+  color: var(--mf-text-soft, #cfd8d2);
+}
+
+.mf-reload-btn {
+  align-self: flex-start;
+  padding: 5px 12px;
+  border: 1px solid rgba(251, 191, 36, 0.55);
+  border-radius: 8px;
+  background: rgba(251, 191, 36, 0.16);
+  color: #fde68a;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.mf-reload-btn:hover {
+  background: rgba(251, 191, 36, 0.28);
+  transform: translateY(-1px);
+}
+
+.mf-reload-btn:active {
+  transform: translateY(0);
+}

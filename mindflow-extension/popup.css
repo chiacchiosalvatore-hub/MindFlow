@@ -1,0 +1,236 @@
+/* MindFlow Companion — popup della barra strumenti (v0.8.0). */
+
+:root {
+  --bg: #0c1210;
+  --panel: #111a17;
+  --border: rgba(255, 255, 255, 0.09);
+  --text: #e7f2ec;
+  --dim: #93a89e;
+  --accent: #34d399;
+  --amber: #fbbf24;
+  --danger: #f87171;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 316px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 12.5px;
+  line-height: 1.45;
+}
+
+.pp-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.pp-logo {
+  width: 22px;
+  height: 22px;
+  flex: none;
+}
+
+.pp-logo line {
+  stroke: var(--accent);
+  stroke-width: 1.7;
+}
+
+.pp-logo circle {
+  fill: var(--accent);
+  stroke: #ecfdf5;
+  stroke-width: 1;
+}
+
+.pp-brand {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.pp-brand strong {
+  font-size: 13px;
+  letter-spacing: 0.2px;
+}
+
+.pp-brand span {
+  font-size: 10px;
+  color: var(--dim);
+}
+
+.pp-block {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.pp-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pp-dot {
+  width: 10px;
+  height: 10px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--danger);
+  box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.15);
+}
+
+.pp-dot.ok {
+  background: var(--accent);
+  box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.15);
+}
+
+.pp-dot.warn {
+  background: var(--amber);
+  box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.15);
+}
+
+.pp-dot.busy {
+  background: var(--dim);
+  box-shadow: none;
+  animation: pp-pulse 1.1s ease-in-out infinite;
+}
+
+@keyframes pp-pulse {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+.pp-engine {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.pp-engine strong {
+  font-size: 12.5px;
+}
+
+.pp-engine span {
+  font-size: 10.5px;
+  color: var(--dim);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pp-mini {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--dim);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.pp-mini:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.pp-chat {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.pp-chat-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+.pp-chat span:last-child {
+  font-size: 12px;
+}
+
+.pp-note {
+  margin: 6px 0 0;
+  font-size: 10.5px;
+  color: var(--dim);
+}
+
+.pp-note.err {
+  color: var(--danger);
+}
+
+.pp-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 12px 14px;
+}
+
+.pp-btn {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--panel);
+  color: var(--text);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.pp-btn svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex: none;
+}
+
+.pp-btn:hover {
+  border-color: rgba(52, 211, 153, 0.5);
+}
+
+.pp-btn-primary {
+  border-color: rgba(52, 211, 153, 0.55);
+  background: rgba(52, 211, 153, 0.12);
+}
+
+.pp-btn:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.pp-foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 14px 11px;
+  font-size: 10px;
+  color: var(--dim);
+}
+
+.pp-capture {
+  font-variant-numeric: tabular-nums;
+}
