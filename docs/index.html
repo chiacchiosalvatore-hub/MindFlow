@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MindFlow Companion — la memoria delle tue chat AI, sul tuo computer</title>
+<meta name="description" content="Estensione browser open source (MIT) che divide le chat AI e le pagine di testo in capitoli semantici, li comprime in checkpoint e li riutilizza come memoria: tutto in locale, zero telemetria." />
+<style>
+  :root{
+    --bg:#090c0b; --surface:#101613; --surface2:#0d1411; --border:#22302b;
+    --text:#d9efe4; --muted:#8aa89a; --accent:#10b981; --accent-strong:#34d399;
+    --maxw:1060px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--accent-strong); text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 22px}
+  header.site{position:sticky; top:0; z-index:10; background:rgba(9,12,11,.88); backdrop-filter:blur(8px); border-bottom:1px solid var(--border)}
+  .nav{display:flex; align-items:center; gap:18px; height:60px}
+  .brand{display:flex; align-items:center; gap:10px; font-weight:700; color:var(--text)}
+  .brand svg{width:26px; height:26px}
+  .nav nav{margin-left:auto; display:flex; gap:18px; font-size:14.5px; flex-wrap:wrap}
+  .nav nav a{color:var(--muted)}
+  .nav nav a:hover{color:var(--text)}
+  .hero{padding:72px 0 46px; text-align:center}
+  .pill{display:inline-block; padding:5px 14px; border:1px solid var(--border); border-radius:999px; color:var(--muted); font-size:13px; letter-spacing:.4px; background:var(--surface2)}
+  h1{font-size:clamp(30px,5.4vw,46px); line-height:1.15; margin:18px auto 14px; max-width:760px}
+  h1 em{font-style:normal; color:var(--accent-strong)}
+  .sub{color:var(--muted); max-width:640px; margin:0 auto 26px; font-size:17px}
+  .cta{display:flex; gap:12px; justify-content:center; flex-wrap:wrap}
+  .btn{display:inline-flex; align-items:center; gap:8px; padding:11px 20px; border-radius:10px; font-weight:600; font-size:15px; border:1px solid var(--border); color:var(--text); background:var(--surface)}
+  .btn.primary{background:var(--accent); border-color:var(--accent); color:#04120c}
+  .btn.primary:hover{background:var(--accent-strong); text-decoration:none}
+  .btn:hover{text-decoration:none; border-color:var(--accent)}
+  .badges{display:flex; gap:8px; justify-content:center; margin-top:26px; flex-wrap:wrap}
+  .badge{font-size:12.5px; color:var(--muted); border:1px solid var(--border); border-radius:8px; padding:5px 11px; background:var(--surface2)}
+  .mock{margin:44px auto 0; max-width:820px}
+  .mock svg{width:100%; height:auto; display:block}
+  section{padding:56px 0}
+  section h2{font-size:clamp(22px,3.4vw,30px); margin:0 0 10px; text-align:center}
+  .lead{color:var(--muted); text-align:center; max-width:620px; margin:0 auto 34px}
+  .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px}
+  .card{background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:20px 18px}
+  .card h3{margin:0 0 8px; font-size:16.5px}
+  .card p{margin:0; color:var(--muted); font-size:14.5px}
+  .steps{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:14px; counter-reset:step}
+  .step{background:var(--surface2); border:1px solid var(--border); border-radius:14px; padding:20px 18px; counter-increment:step}
+  .step::before{content:"Passo " counter(step); display:inline-block; font-size:12px; font-weight:700; letter-spacing:.6px; text-transform:uppercase; color:var(--accent-strong); margin-bottom:10px}
+  .step h3{margin:0 0 8px; font-size:16.5px}
+  .step p{margin:0; color:var(--muted); font-size:14.5px}
+  .shot{max-width:880px; margin:0 auto; background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:10px}
+  .shot img{width:100%; height:auto; display:block; border-radius:8px}
+  .shot figcaption{color:var(--muted); font-size:13px; text-align:center; padding:10px 6px 4px}
+  .privacy-strip{background:linear-gradient(180deg,var(--surface2),var(--bg)); border-top:1px solid var(--border); border-bottom:1px solid var(--border)}
+  .privacy-strip .row{display:flex; gap:26px; justify-content:center; flex-wrap:wrap; color:var(--muted); font-size:14.5px}
+  .privacy-strip b{color:var(--text)}
+  footer.site{border-top:1px solid var(--border); padding:26px 0; color:var(--muted); font-size:14px}
+  footer.site .wrap{display:flex; gap:16px; flex-wrap:wrap; align-items:center; justify-content:space-between}
+  .kicker{color:var(--accent-strong); font-size:13px; font-weight:700; letter-spacing:.8px; text-transform:uppercase; text-align:center; margin-bottom:8px}
+  .note{text-align:center; color:var(--muted); font-size:13.5px; margin-top:18px}
+  code{background:var(--surface2); border:1px solid var(--border); border-radius:5px; padding:1px 5px; font-size:13px}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="MindFlow Companion">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="6.5" x2="17" y2="6.5" stroke="#10b981" stroke-width="1.6"/><line x1="7" y1="6.5" x2="12" y2="17.5" stroke="#10b981" stroke-width="1.6"/><line x1="17" y1="6.5" x2="12" y2="17.5" stroke="#10b981" stroke-width="1.6"/><circle cx="7" cy="6.5" r="2.6" fill="#10b981"/><circle cx="17" cy="6.5" r="2.6" fill="#10b981"/><circle cx="12" cy="17.5" r="2.6" fill="#10b981"/></svg>
+      MindFlow Companion
+    </a>
+    <nav aria-label="Sezioni">
+      <a href="#come-funziona">Come funziona</a>
+      <a href="#screenshot">Screenshot</a>
+      <a href="#funzioni">Funzioni</a>
+      <a href="#privacy">Privacy</a>
+      <a href="https://github.com/chiacchiosalvatore-hub/MindFlow">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap hero">
+    <span class="pill">Estensione browser · open source · licenza MIT</span>
+    <h1>La memoria delle tue chat AI, <em>sul tuo computer</em>.</h1>
+    <p class="sub">MindFlow divide le conversazioni lunghe (e le pagine di testo) in capitoli semantici,
+    comprime ogni capitolo in un <b>checkpoint</b> e ti dà il contesto compilato in un click:
+    nuova chat, memoria intatta, nessun dato che esca dal browser.</p>
+    <div class="cta">
+      <a class="btn primary" href="https://github.com/chiacchiosalvatore-hub/MindFlow">Codice su GitHub</a>
+      <span class="btn" title="Pubblicazione su Chrome Web Store in preparazione">Chrome Web Store — in arrivo</span>
+    </div>
+    <div class="badges">
+      <span class="badge">100% locale</span>
+      <span class="badge">Zero telemetria</span>
+      <span class="badge">Nessun server</span>
+      <span class="badge">Licenza MIT</span>
+      <span class="badge">Ollama · LM Studio · llama.cpp · vLLM</span>
+    </div>
+
+    <div class="mock" role="img" aria-label="Anteprima stilizzata: la chat viene divisa in capitoli e il grafo dei checkpoint cresce da sinistra a destra">
+      <svg viewBox="0 0 780 340">
+        <defs>
+          <linearGradient id="bgp" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#101613"/><stop offset="1" stop-color="#0d1411"/>
+          </linearGradient>
+        </defs>
+        <rect x="4" y="4" width="772" height="332" rx="16" fill="url(#bgp)" stroke="#22302b"/>
+        <!-- Chat a sinistra -->
+        <rect x="28" y="34" width="270" height="52" rx="10" fill="#16201b" stroke="#22302b"/>
+        <rect x="44" y="48" width="180" height="8" rx="4" fill="#2c3a33"/>
+        <rect x="44" y="62" width="130" height="8" rx="4" fill="#243028"/>
+        <rect x="98" y="100" width="200" height="52" rx="10" fill="#123227" stroke="#1d5b41"/>
+        <rect x="114" y="114" width="150" height="8" rx="4" fill="#28513f"/>
+        <rect x="114" y="128" width="110" height="8" rx="4" fill="#224434"/>
+        <rect x="28" y="166" width="270" height="52" rx="10" fill="#16201b" stroke="#22302b"/>
+        <rect x="44" y="180" width="200" height="8" rx="4" fill="#2c3a33"/>
+        <rect x="44" y="194" width="160" height="8" rx="4" fill="#243028"/>
+        <rect x="98" y="232" width="200" height="52" rx="10" fill="#123227" stroke="#1d5b41"/>
+        <rect x="114" y="246" width="160" height="8" rx="4" fill="#28513f"/>
+        <rect x="114" y="260" width="120" height="8" rx="4" fill="#224434"/>
+        <!-- Grafo a destra -->
+        <text x="560" y="42" fill="#8aa89a" font-size="12" text-anchor="middle">Grafo dei checkpoint</text>
+        <line x1="400" y1="80" x2="470" y2="120" stroke="#10b981" stroke-opacity=".45" stroke-width="2"/>
+        <line x1="470" y1="120" x2="560" y2="120" stroke="#10b981" stroke-opacity=".45" stroke-width="2"/>
+        <line x1="560" y1="120" x2="650" y2="120" stroke="#10b981" stroke-opacity=".45" stroke-width="2"/>
+        <line x1="650" y1="120" x2="720" y2="170" stroke="#10b981" stroke-opacity=".45" stroke-width="2"/>
+        <circle cx="400" cy="80" r="10" fill="#10b981"/>
+        <text x="400" y="112" fill="#d9efe4" font-size="11" text-anchor="middle">Inizio</text>
+        <circle cx="470" cy="120" r="12" fill="#10b981"/>
+        <text x="470" y="152" fill="#d9efe4" font-size="11" text-anchor="middle">Cap. 1</text>
+        <circle cx="560" cy="120" r="12" fill="#34d399"/>
+        <text x="560" y="152" fill="#d9efe4" font-size="11" text-anchor="middle">Cap. 2</text>
+        <circle cx="650" cy="120" r="12" fill="#10b981"/>
+        <text x="650" y="152" fill="#d9efe4" font-size="11" text-anchor="middle">Cap. 3</text>
+        <circle cx="720" cy="170" r="12" fill="#10b981"/>
+        <text x="700" y="196" fill="#d9efe4" font-size="11" text-anchor="end">Cap. 4</text>
+        <!-- Checkpoint compilato -->
+        <rect x="430" y="216" width="262" height="92" rx="12" fill="#16201b" stroke="#1d5b41"/>
+        <text x="450" y="242" fill="#34d399" font-size="11" font-weight="700">Contesto compilato — 1 click</text>
+        <rect x="450" y="256" width="200" height="7" rx="3.5" fill="#2c3a33"/>
+        <rect x="450" y="270" width="170" height="7" rx="3.5" fill="#243028"/>
+        <rect x="450" y="284" width="190" height="7" rx="3.5" fill="#2c3a33"/>
+        <text x="668" y="290" fill="#8aa89a" font-size="11">→ Copia</text>
+      </svg>
+    </div>
+    <p class="note">Anteprima stilizzata dell'interfaccia — il grafo reale cresce accanto alla chat, senza mai lasciare la pagina.</p>
+  </div>
+
+  <section id="screenshot">
+    <div class="wrap">
+      <p class="kicker">Screenshot reale</p>
+      <h2>Il grafo, costruito su una chat lunga</h2>
+      <figure class="shot">
+        <img src="img/anteprima-grafo-costruito.png" onerror="this.closest('figure').style.display='none'" alt="Pannello MindFlow: il grafo dei checkpoint costruito a scaletta su una conversazione lunga, con i capitoli collegati in sequenza" loading="lazy" />
+        <figcaption>Una conversazione lunga divisa in capitoli: ogni nodo è un checkpoint comprimibile. Schermata generata dal pannello in modalità demo.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="come-funziona">
+    <div class="wrap">
+      <p class="kicker">Come funziona</p>
+      <h2>Tre passi, nessuna configurazione complicata</h2>
+      <p class="lead">L'estensione osserva la conversazione nella pagina stessa e lavora accanto a ChatGPT, Claude, Gemini e a qualsiasi pagina di testo.</p>
+      <div class="steps">
+        <div class="step">
+          <h3>Apri il pannello nella chat</h3>
+          <p>Una pillola discreta compare accanto alla pagina: il pannello legge la conversazione in corso mentre proseguono i turni, senza toccare nulla.</p>
+        </div>
+        <div class="step">
+          <h3>Costruisci il grafo</h3>
+          <p>Il motore locale divide la chat in capitoli semantici e comprime ogni capitolo in un checkpoint con titolo, riassunto e decisioni chiave.</p>
+        </div>
+        <div class="step">
+          <h3>Compila e riporta la memoria</h3>
+          <p>Il contesto compilato sostituisce l'intera chat: un click su «Copia» e incolli la memoria in una conversazione nuova, pulita e leggera.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="funzioni">
+    <div class="wrap">
+      <p class="kicker">Funzioni</p>
+      <h2>Pensato per il tuo modello, non per un cloud</h2>
+      <p class="lead">Collega il motore che già usi: il client riconosce l'endpoint e si corregge da solo quando la porta cambia.</p>
+      <div class="grid">
+        <div class="card"><h3>Grafo di memoria a capitoli</h3><p>Ogni capitolo della conversazione diventa un nodo con riassunto e decisioni: si vede cosa ha cambiato la chat, in ordine.</p></div>
+        <div class="card"><h3>Checkpoint compilati</h3><p>Il contesto compresso entra nelle nuove conversazioni con un click — la chat resta corta, la memoria resta completa.</p></div>
+        <div class="card"><h3>Motori locali e cloud</h3><p>Ollama, LM Studio, llama.cpp, vLLM, Jan, KoboldCpp, GPT4All… oppure OpenAI e Anthropic con la tua chiave.</p></div>
+        <div class="card"><h3>Auto-correzione endpoint</h3><p>Porte cambiate (1234→1235) e URL con <code>/v1</code> di troppo vengono riconosciuti e corretti automaticamente dal test di connessione.</p></div>
+        <div class="card"><h3>Modalità pagina</h3><p>Non solo chat: wiki, articoli e documentazione online possono essere divisi in capitoli e riassunti allo stesso modo.</p></div>
+        <div class="card"><h3>Sessioni senza residui</h3><p>Il cambio di scheda, di modello o il reset creano sessioni isolate: la suite di test automatici verifica che non resti memoria sporca.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="privacy" class="privacy-strip">
+    <div class="wrap">
+      <p class="kicker">Privacy</p>
+      <h2>Niente server. Niente telemetria. Punto.</h2>
+      <div class="row">
+        <span><b>0</b> dati raccolti</span>
+        <span><b>0</b> richieste verso server dell'autore</span>
+        <span>Chiavi API solo in <b>chrome.storage.local</b></span>
+        <span>Disinstalli = <b>tutto cancellato</b></span>
+      </div>
+      <p class="lead" style="margin-bottom:0">
+        Il codice è pubblico e verificabile, con un <a href="https://github.com/chiacchiosalvatore-hub/MindFlow/blob/main/docs/AUDIT-SICUREZZA.md">audit di sicurezza statico completo</a>
+        e un'<a href="https://github.com/chiacchiosalvatore-hub/MindFlow/blob/main/docs/privacy-policy.html">informativa privacy</a> pensata per l'utente, non per gli avvocati.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="grid">
+        <div class="card"><h3>Documentazione</h3><p><a href="https://github.com/chiacchiosalvatore-hub/MindFlow/blob/main/mindflow-extension/INSTALLAZIONE.md">Guida di installazione passo-passo</a> — caricamento unpacked, collegamento del motore, sblocco CORS di Ollama e LM Studio.</p></div>
+        <div class="card"><h3>Test automatici</h3><p>La suite gira senza dipendenze: <code>node scripts/test-engine-client.js</code> e gli altri <code>test-*.js</code>. Ogni versione è allineata nel CHECKPOINT.</p></div>
+        <div class="card"><h3>Segnalazioni di sicurezza</h3><p>Trovato un problema? Usa la scheda <b>Security → Report a vulnerability</b> del repository: niente dettagli nelle issue pubbliche.</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>MindFlow Companion — un progetto <b>DevourLabs</b></span>
+    <span>Licenza <a href="https://github.com/chiacchiosalvatore-hub/MindFlow/blob/main/LICENSE">MIT</a> · © 2026</span>
+  </div>
+</footer>
+
+</body>
+</html>
