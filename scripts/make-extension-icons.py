@@ -5,6 +5,8 @@ Design: quadrato arrotondato scuro con tre nodi smeraldo collegati
 (mini-grafo di checkpoint).
 """
 
+import os
+
 from PIL import Image, ImageDraw
 
 EMERALD = (16, 185, 129)      # #10b981
@@ -46,8 +48,12 @@ def draw_icon(size: int) -> Image.Image:
 
 
 def main() -> None:
-    out_dir = "/home/z/my-project/mindflow-extension/icons"
-    import os
+    # Percorso relativo alla posizione di questo script: funziona in qualsiasi
+    # clone del repository (override opzionale: variabile MINDFLOW_ICONS_DIR).
+    repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    out_dir = os.environ.get(
+        "MINDFLOW_ICONS_DIR", os.path.join(repo_root, "mindflow-extension", "icons")
+    )
     os.makedirs(out_dir, exist_ok=True)
     for size in (16, 32, 48, 128):
         img = draw_icon(size)

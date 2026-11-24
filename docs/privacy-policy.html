@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Informativa privacy — MindFlow Companion</title>
+<style>
+  :root{
+    --bg:#090c0b; --surface:#101613; --border:#22302b;
+    --text:#d9efe4; --muted:#8aa89a; --accent:#10b981; --accent-strong:#34d399;
+  }
+  body{margin:0; background:var(--bg); color:var(--text);
+    font:16px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;}
+  a{color:var(--accent-strong); text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:760px; margin:0 auto; padding:40px 22px 80px}
+  h1{font-size:30px; line-height:1.2; margin:14px 0 6px}
+  h2{font-size:19px; margin:34px 0 10px; color:#fff}
+  p, li{color:var(--text)}
+  .muted{color:var(--muted)}
+  .up{border-bottom:1px solid var(--border); padding-bottom:10px; margin-bottom:6px}
+  table{width:100%; border-collapse:collapse; margin:14px 0; font-size:14.5px}
+  th,td{border:1px solid var(--border); padding:9px 11px; text-align:left; vertical-align:top}
+  th{background:var(--surface); color:#fff}
+  td{color:var(--muted)}
+  td b{color:var(--text)}
+  .ok{color:var(--accent-strong); font-weight:700}
+  code{background:var(--surface); border:1px solid var(--border); border-radius:5px; padding:1px 5px; font-size:13.5px}
+  .box{background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:16px 18px; margin:16px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="muted up">MindFlow Companion · DevourLabs · ultima aggiornamento: 24 novembre 2026</p>
+  <h1>Informativa privacy</h1>
+  <p class="muted">Questa informativa descrive come l'estensione browser <b>MindFlow Companion</b> («MindFlow», «l'estensione») tratta le informazioni. In una frase: <b>l'estensione non raccoglie, non trasmette e non vende alcun dato personale</b>. Non c'è un server dell'autore, non ci sono analytics, non ci sono cookie di tracciamento.</p>
+
+  <h2>1. Chi è il titolare</h2>
+  <p>DevourLabs (sviluppatore indipendente). Per ogni richiesta su questa informativa: apri una <a href="https://github.com/chiacchiosalvatore-hub/MindFlow/issues">issue pubblica sul repository</a> oppure segnala in privato dalla scheda Security del repository stesso.</p>
+
+  <h2>2. Cosa fa l'estensione, in breve</h2>
+  <p>MindFlow osserva la conversazione o la pagina che <b>tu stai già guardando</b> nel tuo browser, la divide in capitoli semantici e produce «checkpoint» (riassunti comprimi) usando il motore linguistico <b>che scegli tu</b>: in locale (Ollama, LM Studio, llama.cpp, vLLM, Jan, KoboldCpp, GPT4All…) oppure, se lo configuri, un'API cloud (OpenAI, Anthropic) con la tua chiave.</p>
+
+  <h2>3. Dati raccolti dall'estensione: <span class="ok">nessuno</span></h2>
+  <ul>
+    <li><b>Nessun dato personale</b> viene raccolto, registrato o trasmesso a chiunque al di fuori del tuo browser.</li>
+    <li><b>Nessun server</b> dell'autore esiste: il codice non contiene endpoint di raccolta, statistiche o telemetria.</li>
+    <li><b>Nessun cookie, nessun beacon, nessuna pubblicità.</b></li>
+    <li><b>Nessun account</b>: l'estensione non chiede login né registrazione.</li>
+  </ul>
+
+  <h2>4. Dati elaborati localmente (restano nel tuo browser)</h2>
+  <ul>
+    <li><b>Contenuto della conversazione o della pagina</b>: serve per costruire il grafo dei capitoli e i checkpoint. Viene mantenuto nello spazio di archiviazione locale dell'estensione (<code>chrome.storage.local</code>) e <b>non</b> lascia il dispositivo, tranne nel caso descritto al punto 5.</li>
+    <li><b>Impostazioni</b> (tipo di motore, URL dell'endpoint, modello): archiviate in <code>chrome.storage.local</code>.</li>
+    <li><b>Chiave API, se ne configuri una</b>: archiviata <b>solo</b> in <code>chrome.storage.local</code> (archiviazione locale del profilo browser). Non è mai sincronizzata verso account Google, mai inclusa nel codice, mai inviata a chiunque tranne l'endpoint che scegli tu.</li>
+  </ul>
+  <div class="box"><b>Come eliminare tutto:</b> rimuovi l'estensione dal browser. Ogni dato (sessioni, grafi, impostazioni, chiavi) viene cancellato con essa. Non esiste alcuna copia altrove.</div>
+
+  <h2>5. Il traffico di rete: solo verso l'endpoint che scegli tu</h2>
+  <p>L'unica comunicazione di rete generata dall'estensione è la richiesta di completamento al motore che hai configurato tu nelle impostazioni:</p>
+  <ul>
+    <li><b>Motori locali</b> (es. Ollama su <code>http://127.0.0.1:11434</code>, LM Studio, llama.cpp, vLLM…): il testo viene inviato sul tuo computer, al tuo modello, e rimane tutto sul tuo computer.</li>
+    <li><b>API cloud opzionali</b> (OpenAI, Anthropic): il testo viene inviato a quel fornitore con la tua chiave, secondo le loro politiche. Attivando un motore cloud accetti le condizioni del fornitore che hai scelto; MindFlow non aggiunge nulla e non passa da alcun intermediario.</li>
+  </ul>
+  <p>La cattura di rete (<code>net-capture.js</code>) legge una <b>copia di sola lettura</b> delle risposte in streaming delle chat osservate (ChatGPT, Claude e la chat di prova MindFlow) per capire chi ha detto cosa, e <b>non modifica</b> richieste né risposte della pagina. I dati catturati restano nella pagina e nell'estensione.</p>
+
+  <h2>6. Permessi richiesti e perché servono</h2>
+  <table>
+    <tr><th>Permesso</th><th>A cosa serve</th><th>Note</th></tr>
+    <tr><td><b>storage</b></td><td>Salvare impostazioni, grafi e checkpoint nel browser</td><td>Dati solo sul dispositivo; eliminabili disinstallando</td></tr>
+    <tr><td><b>clipboardWrite</b></td><td>Il pulsante «Copia» del contesto compilato</td><td>Attivato solo quando tu clicchi</td></tr>
+    <tr><td><b>scripting</b></td><td>Iniettare la cattura dello stream dove la sicurezza (CSP) della pagina impedisce il caricamento diretto</td><td>Serve per leggere le risposte del chatbot nella pagina</td></tr>
+    <tr><td><b>Content script su tutti i siti</b></td><td>La «modalità pagina» deve poter comparire su wiki, articoli e documentazione di qualsiasi dominio</td><td>La lettura avviene nel browser; nessun dato viene inviato tranne al motore configurato</td></tr>
+    <tr><td><b>Host localhost / 127.0.0.1</b></td><td>Collegarsi ai motori LLM installati sul tuo computer</td><td>Richieste verso il tuo dispositivo</td></tr>
+    <tr><td><b>Host cloud e siti di chat</b></td><td>API cloud opzionali con la tua chiave; chat da osservare</td><td>Chiavi solo in <code>chrome.storage.local</code></td></tr>
+  </table>
+
+  <h2>7. Trasparenza tecnica</h2>
+  <p>L'estensione è open source con <a href="https://github.com/chiacchiosalvatore-hub/MindFlow/blob/main/docs/AUDIT-SICUREZZA.md">audit statico documentato</a>: nessun codice remoto, nessun <code>eval</code>, nessuno script inline, validazione delle sorgenti dei messaggi interni. Nota di trasparenza: la cattura degli stream avviene nella pagina stessa (world «MAIN»), quindi gli script della pagina che stai visitando potrebbero tecnicamente leggere i messaggi interni che MindFlow scambia su quella pagina — si tratta del testo della conversazione che quella pagina ha già inviato e mostrato a te.</p>
+
+  <h2>8. Minori e titolari</h2>
+  <p>L'estensione non è rivolta a minori di 14 anni e non raccoglie dati di alcun tipo da chiunque. Non essendoci raccolta, non vengono vendute o condivise informazioni con terze parti, in nessun caso.</p>
+
+  <h2>9. Modifiche a questa informativa</h2>
+  <p>Se cambia qualcosa nel trattamento dei dati (per esempio un eventuale motore di sincronizzazione di una futura edizione Pro), questa pagina verrà aggiornata <b>prima</b> della pubblicazione della versione interessata e la data in cima alla pagina cambierà. Lo storico delle versioni resta visibile nella cronologia del repository.</p>
+</div>
+</body>
+</html>

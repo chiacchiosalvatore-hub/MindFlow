@@ -11,7 +11,8 @@ import json
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 
-SRC = Path("/home/z/my-project/mindflow-extension")
+# Relativo alla posizione di questo script: funziona in qualsiasi clone.
+SRC = Path(__file__).resolve().parent.parent / "mindflow-extension"
 OUT = Path("/tmp/render")
 OUT.mkdir(parents=True, exist_ok=True)
 
