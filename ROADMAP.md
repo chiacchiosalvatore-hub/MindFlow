@@ -30,10 +30,10 @@ Collegato al piano di visibilità e monetizzazione v1.2.2.
 - [ ] Chiusura e riapertura del pannello a metà conversazione
 - [ ] Cambio scheda / navigazione durante la conversazione
 - [ ] Cambio endpoint o modello a metà sessione
-- [ ] Reset/cancella sessione: verificare che lo storico non compaia nella sessione nuova
-- [ ] Aggiungere uno scenario automatizzato in `scripts/` (stile dei `test-*.js` esistenti)
+- [ ] Reset/cancella sessione: verificare che lo storico non compaia nella sessione nuova (fatto, vedi sotto)
+- [x] Aggiungere uno scenario automatizzato in `scripts/` (stile dei `test-*.js` esistenti) — **fatto: `scripts/test-memoria-residua.js`, 24 asserzioni** (24/11/2026): conversazione lunga a molti poll, chiusura/riapertura del pannello, cambio scheda (convKey), cambio endpoint/modello via `storage.onChanged`, reset con doppio clic (isolamento dell'altra chat e nessun residuo nello storage)
 
-Baseline attuale (v1.2.2): suite verde — `test-engine-client.js` 20/20, `test-port-autofix.js` 14/14, `test-autodetect.js` 4/4 scenari.
+Baseline attuale (v1.2.2): suite verde — `test-engine-client.js` 20/20, `test-port-autofix.js` 14/14, `test-autodetect.js` 4/4 scenari, `test-memoria-residua.js` 24/24 (nuovo).
 
 ## 4. Web app companion (Next.js): includerla o mantenerla separata?
 
