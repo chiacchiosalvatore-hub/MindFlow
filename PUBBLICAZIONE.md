@@ -11,6 +11,20 @@ Base di partenza: v1.2.2 «La porta si corregge da sola», suite di test verde
 Il piano completo di visibilità, lancio e monetizzazione
 è nel documento «MindFlow-Piano-Deploy-Visibilita-Monetizzazione-v1.2.2.pdf».
 
+Aggiornamento (25/11/2026) — strategia confermata in due fasi:
+
+1. **Fase 1 — soft launch su GitHub (adesso)**: repository reso pubblico,
+   Release `v1.2.2` con lo zip Chrome, vetrina su GitHub Pages e post sui
+   canali (Show HN, r/LocalLLaMA, r/chrome_extensions, community italiane).
+   Obiettivo: misurare l'interesse reale (visite, star, cloni, feedback)
+   prima di investire tempo e la quota di 5 USD nell'account store.
+   L'installazione per gli utenti è la via «unpacked» documentata nel README.
+2. **Fase 2 — Chrome Web Store**, con il piano qui sotto invariato (account,
+   DSA, asset del § 3, revisione del § 6), quando i segnali lo giustificano.
+
+La «GIF demo» (asset 1 del § 3) serve a entrambe le fasi: entra in README e
+vetrina in questa fase e si riusa nello store in quella successiva.
+
 ## 1. Dichiarazione trader / non-trader (DSA) — prima di tutto
 
 Google chiede a OGNI sviluppatore CWS di dichiararsi «trader» o «non-trader»

@@ -6,6 +6,8 @@
 
 **Vetrina online:** https://chiacchiosalvatore-hub.github.io/MindFlow/ (GitHub Pages, sorgente in [`docs/`](docs/)) · Licenza **MIT** · Audit di sicurezza: [`docs/AUDIT-SICUREZZA.md`](docs/AUDIT-SICUREZZA.md)
 
+**Fase 1 del lancio (25/11/2026): beta pubblica qui su GitHub** — scarica lo zip dalla sezione [Releases](https://github.com/chiacchiosalvatore-hub/MindFlow/releases) e segui la sezione «Installazione per utenti» qui sotto. Chrome Web Store arriva come Fase 2, dopo la validazione dei segnali.
+
 ## Cos'è
 
 MindFlow porta nel browser un'interfaccia completa verso il proprio modello locale:
@@ -46,6 +48,22 @@ docs/                        # GitHub Pages: vetrina, privacy policy, audit di s
 
 La **web app companion Next.js** è sviluppata a parte (decisione tracciata in [`ROADMAP.md`](ROADMAP.md)); i documenti di distribuzione PDF/DOCX non sono versionati.
 
+## Installazione per utenti (beta, senza store)
+
+Serve Chrome per desktop e un motore LLM che già possiedi: locale (Ollama, LM Studio, llama.cpp, vLLM…) oppure un'API cloud con la tua chiave. MindFlow non ha server: tutto gira nel tuo browser.
+
+1. Scarica lo zip dell'ultima [Release](https://github.com/chiacchiosalvatore-hub/MindFlow/releases) (es. `mindflow-extension-v1.2.2.zip`) ed estrailo in una cartella che non cancellerai.
+2. Apri `chrome://extensions` e attiva la **Modalità sviluppatore** (interruttore in alto a destra).
+3. Clicca **Carica estensione non pacchettizzata** e seleziona la cartella estratta.
+4. Apri le opzioni di MindFlow e indica l'endpoint del motore (il test di connessione corregge da solo le porte sbagliate) oppure l'API cloud con la tua chiave.
+
+Due note oneste sul lancio «da GitHub»:
+
+- Chrome mostra a ogni avvio un avviso sulle estensioni in modalità sviluppatore: è il comportamento normale fuori dallo store, si chiude e non limita nessuna funzione.
+- Gli aggiornamenti non sono automatici: scarica la nuova Release, estrai i file **sulla stessa cartella** e premi «Ricarica» su `chrome://extensions`; impostazioni e grafi restano al loro posto.
+
+Guida completa con lo sblocco CORS di Ollama/LM Studio: [`mindflow-extension/INSTALLAZIONE.md`](mindflow-extension/INSTALLAZIONE.md).
+
 ## Dopo il clone
 
 1. Le icone sono incluse; per rigenerarle: `python3 scripts/make-extension-icons.py` (crea `mindflow-extension/icons/icon-16/32/48/128.png`).
@@ -80,7 +98,7 @@ Stato allineamento v1.2.2: **tutti verdi** (vedi CHECKPOINT.md).
 
 Tracciata in [`ROADMAP.md`](ROADMAP.md):
 
-1. Pubblicazione su Chrome Web Store (lancio Chrome-only, AMO rimandato);
+1. Fase 1 — soft launch su GitHub (repo pubblico, Release con lo zip, Pages); Fase 2 — Chrome Web Store dopo la validazione (Chrome-only, AMO rimandato);
 2. Licenza: **MIT, scelta e applicata** (2026-11-24); modello freemium da definire;
 3. Test di regressione sulla memoria residua nelle conversazioni lunghe;
 4. Web app companion: resta separata; vetrina statica + privacy policy già estratte in `docs/`.
