@@ -41,13 +41,13 @@ scripts/                     # test automatici + utility build/QA
 ```
 
 **Non inclusi nel repository** (vedi note):
-- le **icone PNG** (`mindflow-extension/icons/`, file binari): si rigenerano con `python3 scripts/make-extension-icons.py`;
-- la **web app companion Next.js**: sviluppata a parte, decisione di inclusione tracciata in issue;
+- le **icone PNG** (`mindflow-extension/icons/`): file binari — se assenti dopo il clone, si rigenerano con `python3 scripts/make-extension-icons.py`;
+- la **web app companion Next.js**: sviluppata a parte, decisione di inclusione tracciata in [`ROADMAP.md`](ROADMAP.md);
 - i documenti di distribuzione PDF/DOCX (piano di deploy ecc.).
 
 ## Dopo il clone
 
-1. Rigenera le icone: `python3 scripts/make-extension-icons.py` (crea `mindflow-extension/icons/icon-16/32/48/128.png`).
+1. Se le icone non sono presenti, rigenerale: `python3 scripts/make-extension-icons.py` (crea `mindflow-extension/icons/icon-16/32/48/128.png`).
 2. Carica l'estensione: `chrome://extensions` → modalità sviluppatore → **Carica unpacked** → seleziona `mindflow-extension/`. Su Firefox: `about:debugging` → **This Firefox** → **Load Temporary Add-on**.
 3. Avvia il modello locale (es. Ollama) e apri il pannello MindFlow.
 4. Guida completa: [`mindflow-extension/INSTALLAZIONE.md`](mindflow-extension/INSTALLAZIONE.md).
@@ -77,7 +77,7 @@ Stato allineamento v1.2.2: **tutti verdi** (vedi CHECKPOINT.md).
 
 ## Roadmap
 
-Tracciata nelle issue del repository:
+Tracciata in [`ROADMAP.md`](ROADMAP.md):
 
 1. Pubblicazione su Chrome Web Store e Firefox AMO;
 2. Decisione licenza + modello freemium;
@@ -86,4 +86,4 @@ Tracciata nelle issue del repository:
 
 ## Licenza
 
-Da definire — vedi issue dedicata.
+Da definire — vedi [`ROADMAP.md`](ROADMAP.md).
