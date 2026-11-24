@@ -4,6 +4,8 @@
 
 **Versione corrente: v1.2.2 — «La porta si corregge da sola»** — stato di allineamento al 2026-11-24, vedi [`mindflow-extension/CHECKPOINT.md`](mindflow-extension/CHECKPOINT.md).
 
+**Vetrina online:** https://chiacchiosalvatore-hub.github.io/MindFlow/ (GitHub Pages, sorgente in [`docs/`](docs/)) · Licenza **MIT** · Audit di sicurezza: [`docs/AUDIT-SICUREZZA.md`](docs/AUDIT-SICUREZZA.md)
+
 ## Cos'è
 
 MindFlow porta nel browser un'interfaccia completa verso il proprio modello locale:
@@ -29,30 +31,27 @@ mindflow-extension/          # sorgente dell'estensione (v1.2.2, pronta da caric
   panel.html/css/js          # side panel (chat, grafici, sessione)
   popup.html/css/js          # popup
   options.html/css/js        # pagine opzioni
+  icons/                     # icone PNG incluse (rigenerabili con lo script)
   README.md                  # guida dell'estensione
   INSTALLAZIONE.md           # installazione passo-passo
   CHECKPOINT.md              # stato progetto v1.2.2
-scripts/                     # test automatici + utility build/QA
+scripts/                     # test automatici + utility build/QA (percorsi relativi, portabili)
   test-*.js                  # suite di test (engine, adapter, porta, rete, ...)
-  build-extension.sh         # script di build/packaging
+  build-extension.sh         # build/packaging (zip Chrome + variante Firefox)
   make-extension-icons.py    # rigenera le icone PNG
   mock-local-llm.js          # finto endpoint LLM per i test
   check-*.js / shot-*        # QA DOM e screenshot
+docs/                        # GitHub Pages: vetrina, privacy policy, audit di sicurezza
 ```
 
-**Non inclusi nel repository** (vedi note):
-- le **icone PNG** (`mindflow-extension/icons/`): file binari — se assenti dopo il clone, si rigenerano con `python3 scripts/make-extension-icons.py`;
-- la **web app companion Next.js**: sviluppata a parte, decisione di inclusione tracciata in [`ROADMAP.md`](ROADMAP.md);
-- i documenti di distribuzione PDF/DOCX (piano di deploy ecc.).
+La **web app companion Next.js** è sviluppata a parte (decisione tracciata in [`ROADMAP.md`](ROADMAP.md)); i documenti di distribuzione PDF/DOCX non sono versionati.
 
 ## Dopo il clone
 
-1. Se le icone non sono presenti, rigenerale: `python3 scripts/make-extension-icons.py` (crea `mindflow-extension/icons/icon-16/32/48/128.png`).
+1. Le icone sono incluse; per rigenerarle: `python3 scripts/make-extension-icons.py` (crea `mindflow-extension/icons/icon-16/32/48/128.png`).
 2. Carica l'estensione: `chrome://extensions` → modalità sviluppatore → **Carica unpacked** → seleziona `mindflow-extension/`. Su Firefox: `about:debugging` → **This Firefox** → **Load Temporary Add-on**.
 3. Avvia il modello locale (es. Ollama) e apri il pannello MindFlow.
 4. Guida completa: [`mindflow-extension/INSTALLAZIONE.md`](mindflow-extension/INSTALLAZIONE.md).
-
-> Nota: `scripts/build-extension.sh` e `scripts/make-extension-icons.py` contengono percorsi assoluti dell'ambiente di sviluppo originale (`/home/z/my-project/...`); adattarli al proprio ambiente.
 
 ## Test
 
@@ -62,6 +61,7 @@ I test girano con Node.js, senza dipendenze da installare:
 node scripts/test-engine-client.js    # 20/20
 node scripts/test-port-autofix.js     # 14/14 (autofix porta 1234→1235)
 node scripts/test-autodetect.js       # 4/4 scenari di autodetect endpoint
+node scripts/test-memoria-residua.js  # 24/24 (sessioni isolate, nessun residuo)
 node scripts/test-panel-boot.js       # boot del pannello
 # ... e gli altri test-*.js in scripts/
 ```
@@ -71,19 +71,21 @@ Stato allineamento v1.2.2: **tutti verdi** (vedi CHECKPOINT.md).
 ## Privacy e sicurezza
 
 - **Nessuna telemetria**: nessun dato lascia il browser.
-- **Nessun segreto nel codice**: audit di sicurezza su 5 livelli completato; le chiavi API, se l'utente le configura, vivono solo nel `chrome.storage` locale.
-- **Permessi minimi** richiesti dal manifest.
-- Endpoint del modello configurabile e verificabile dall'utente (`net-capture.js` per la diagnostica).
+- **Nessun segreto nel codice**: audit statico completo e documentato in [`docs/AUDIT-SICUREZZA.md`](docs/AUDIT-SICUREZZA.md); le chiavi API, se l'utente le configura, vivono solo nel `chrome.storage` **locale**.
+- **Permessi minimi** richiesti dal manifest, con giustificazioni pronte per la revisione in [`PUBBLICAZIONE.md`](PUBBLICAZIONE.md).
+- **Informativa privacy** pubblica: [`docs/privacy-policy.html`](docs/privacy-policy.html).
+- **Segnalazioni di sicurezza**: disclosure privata via [`SECURITY.md`](SECURITY.md) (GitHub Security Advisories).
 
 ## Roadmap
 
 Tracciata in [`ROADMAP.md`](ROADMAP.md):
 
-1. Pubblicazione su Chrome Web Store e Firefox AMO;
-2. Decisione licenza + modello freemium;
+1. Pubblicazione su Chrome Web Store (lancio Chrome-only, AMO rimandato);
+2. Licenza: **MIT, scelta e applicata** (2026-11-24); modello freemium da definire;
 3. Test di regressione sulla memoria residua nelle conversazioni lunghe;
-4. Eventuale inclusione della web app companion nel repository.
+4. Web app companion: resta separata; vetrina statica + privacy policy già estratte in `docs/`.
 
 ## Licenza
 
-Da definire — vedi [`ROADMAP.md`](ROADMAP.md).
+Distribuito con **licenza MIT** — vedi il file [LICENSE](LICENSE).
+© 2026 DevourLabs. Le note dell'informativa privacy restano valide per ogni uso del codice.
