@@ -19,7 +19,7 @@ Google chiede a OGNI sviluppatore CWS di dichiararsi «trader» o «non-trader»
   esibito in scheda. È il caso del lancio consigliato (open source + donazioni).
 - **Prezzi, edizione Pro o vendita diretta** → si è «trader»: Google verifica
   NOME legale, TELEFONO (capace di ricevere SMS) e INDIRIZZO, e li esibisce
-  PUBLICAMENTE in fondo alla scheda dello store.
+  PUBBLICAMENTE in fondo alla scheda dello store.
 - Le donazioni volontarie (GitHub Sponsors / Ko-fi) da sole non sono, in linea
   di principio, un'attività commerciale; se il progetto inizia a monetizzare
   davvero, la dichiarazione va ripresa. In caso di dubbio, «trader» è la via
@@ -37,7 +37,7 @@ Google chiede a OGNI sviluppatore CWS di dichiararsi «trader» o «non-trader»
 
 1. **GIF demo di 45-60 s** (muta): chat lunga aperta → «Costruisci il grafo»
    con l'orologio dei secondi visibile → grafo che si popola a scaletta →
-   «Compila» col confronto contesto compilaTo/chat intera → «Copia» → nuova
+   «Compila» col confronto contesto compilato/chat intera → «Copia» → nuova
    chat con la memoria incollata. Chiusura con la frase di posizionamento.
    Si riusa nel README, nello store e nei canali di lancio.
 2. **1-5 screenshot 1280x800**: pannello con grafo completo, dettaglio
@@ -76,7 +76,7 @@ Google chiede a OGNI sviluppatore CWS di dichiararsi «trader» o «non-trader»
 
 Nel tab «Privacy practices» del dashboard: dichiarare che NON vengono raccolti
 dati personali né dati d'uso; nessuna pubblicità; nessun codice eseguito da
-remoto. L'informativa privacy (§ 3.3) va linkata dove richiesto.
+remoto. L'informativa privacy (asset 3 del § 3) va linkata dove richiesto.
 
 ## 6. Invio e revisione
 
