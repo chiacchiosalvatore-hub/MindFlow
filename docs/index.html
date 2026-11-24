@@ -76,6 +76,7 @@
       MindFlow Companion
     </a>
     <nav aria-label="Sezioni">
+      <a href="#installazione">Installazione</a>
       <a href="#come-funziona">Come funziona</a>
       <a href="#screenshot">Screenshot</a>
       <a href="#funzioni">Funzioni</a>
@@ -87,14 +88,15 @@
 
 <main id="top">
   <div class="wrap hero">
-    <span class="pill">Estensione browser · open source · licenza MIT</span>
+    <span class="pill">Estensione browser · open source · licenza MIT · beta pubblica</span>
     <h1>La memoria delle tue chat AI, <em>sul tuo computer</em>.</h1>
     <p class="sub">MindFlow divide le conversazioni lunghe (e le pagine di testo) in capitoli semantici,
     comprime ogni capitolo in un <b>checkpoint</b> e ti dà il contesto compilato in un click:
     nuova chat, memoria intatta, nessun dato che esca dal browser.</p>
     <div class="cta">
-      <a class="btn primary" href="https://github.com/chiacchiosalvatore-hub/MindFlow">Codice su GitHub</a>
-      <span class="btn" title="Pubblicazione su Chrome Web Store in preparazione">Chrome Web Store — in arrivo</span>
+      <a class="btn primary" href="https://github.com/chiacchiosalvatore-hub/MindFlow/releases">Scarica la beta — zip da Releases</a>
+      <a class="btn" href="https://github.com/chiacchiosalvatore-hub/MindFlow">Codice su GitHub</a>
+      <span class="btn" title="Pubblicazione su Chrome Web Store prevista dopo la fase di validazione">Chrome Web Store — in arrivo</span>
     </div>
     <div class="badges">
       <span class="badge">100% locale</span>
@@ -158,9 +160,32 @@
       <p class="kicker">Screenshot reale</p>
       <h2>Il grafo, costruito su una chat lunga</h2>
       <figure class="shot">
-        <img src="img/anteprima-grafo-costruito.png" onerror="this.closest('figure').style.display='none'" alt="Pannello MindFlow: il grafo dei checkpoint costruito a scaletta su una conversazione lunga, con i capitoli collegati in sequenza" loading="lazy" />
+        <img src="anteprima-grafo-costruito.png" onerror="this.closest('figure').style.display='none'" alt="Pannello MindFlow: il grafo dei checkpoint costruito a scaletta su una conversazione lunga, con i capitoli collegati in sequenza" loading="lazy" />
         <figcaption>Una conversazione lunga divisa in capitoli: ogni nodo è un checkpoint comprimibile. Schermata generata dal pannello in modalità demo.</figcaption>
       </figure>
+    </div>
+  </section>
+
+  <section id="installazione">
+    <div class="wrap">
+      <p class="kicker">Installazione beta</p>
+      <h2>Primo lancio qui su GitHub: pronta in due minuti</h2>
+      <p class="lead">Finché non arriva lo store si installa dal codice aperto: serve Chrome per desktop e un motore LLM che già possiedi (locale come Ollama, oppure un'API cloud con la tua chiave).</p>
+      <div class="steps">
+        <div class="step">
+          <h3>Scarica lo zip</h3>
+          <p>Dalla sezione <a href="https://github.com/chiacchiosalvatore-hub/MindFlow/releases">Releases</a> scarica l'ultima versione (es. <code>mindflow-extension-v1.2.2.zip</code>) ed estraila in una cartella stabile.</p>
+        </div>
+        <div class="step">
+          <h3>Carica l'estensione</h3>
+          <p>Apri <code>chrome://extensions</code>, attiva «Modalità sviluppatore», poi «Carica estensione non pacchettizzata» e seleziona la cartella estratta.</p>
+        </div>
+        <div class="step">
+          <h3>Collega il motore</h3>
+          <p>Nelle opzioni indica l'endpoint del modello (il test di connessione corregge da solo le porte sbagliate) oppure l'API cloud con la tua chiave.</p>
+        </div>
+      </div>
+      <p class="note">Chrome mostra a ogni avvio un avviso sulla «modalità sviluppatore»: è il comportamento normale fuori dallo store e non limita nulla. Aggiornamenti: scarica la nuova Release, estrai sulla stessa cartella e premi «Ricarica» nella pagina estensioni. Guida completa: <a href="https://github.com/chiacchiosalvatore-hub/MindFlow/blob/main/mindflow-extension/INSTALLAZIONE.md">INSTALLAZIONE.md</a>.</p>
     </div>
   </section>
 
