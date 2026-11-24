@@ -73,6 +73,29 @@ variante Firefox.
 4. Taglia la porta a caso e premi «Test connessione»: appare la scansione e
    la correzione (o la guida se non c'è nessun server).
 
+### Repository GitHub e test memoria residua (24/11/2026, stesso giorno)
+
+**Repository**: il codice sorgente completo (estensione + script + icone) è ora
+versionato su GitHub (`chiacchiosalvatore-hub/MindFlow`): README, ROADMAP,
+`.gitignore`, `mindflow-extension/` (19 file + 4 icone PNG) e `scripts/`
+(22 test/utility) — allineamento verificato byte per byte con gli SHA git.
+
+**Nuovo test**: `scripts/test-memoria-residua.js` — **24 pass** — chiude la
+voce 3 della roadmap (memoria residua nelle conversazioni lunghe) con il
+pannello REALE caricato in jsdom e uno storage finto che ricorda come
+chrome.storage.local. Copre i cinque scenari: (A) conversazione lunga a 6
+poll / 12 messaggi — una sola sessione, nessun nodo fantasma; (B) chiusura e
+riapertura a metà conversazione — il grafo (root + 3 checkpoint) torna
+identico, il nuovo poll non duplica nulla, e «Compila» copre SOLO i messaggi
+dopo l'ultimo checkpoint (8 di 14: il primo messaggio, già compresso, non
+riappare); (C) cambio scheda/convKey — il payload non si trascina nella nuova
+chat e le due sessioni restano separate e integre al ritorno; (D) cambio
+endpoint/modello via `storage.onChanged` — la verifica motore riparte verso
+il nuovo endpoint e la memoria di sessione resta identica byte per byte;
+(E) reset con doppio clic — sessione ridotta alla radice, NESSUN titolo/id
+vecchio nello storage, l'altra chat non toccata, e i messaggi nuovi non
+riportano in vita lo storico. Suite completa verde dopo l'aggiunta.
+
 ## Versione precedente: v1.2.1 «LM Studio riconosciuto al volo»
 
 Segnalazione utente del 21/11 dopo le prove della v1.2.0 («siamo al 99% per
@@ -204,7 +227,7 @@ cancellazione ma NON chiudeva il dialogo, che restava aperto a coprire il pannel
    errori) — i tasti sembravano morti. Ora un esito non-busy tiene la riga 3 s prima che
    l'orologio riprenda.
 3. Flag di annullamento ripulito ai giusti confini: un nuovo avvio (raccolta o pipeline)
-   ignora un annullamento precedente; nessun stato «bloccato» permanente.
+   ignora un annullamento precedente; nessuno stato «bloccato» permanente.
 
 Conferma utente del 21/11 dopo le prove: **«varie prove ok, siamo vicini»** — la v1.1.4
 è il punto fermo da cui parte la v1.2.0. Test: suite completa verde (panel-boot 8,
